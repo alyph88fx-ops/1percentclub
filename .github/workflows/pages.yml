@@ -1,0 +1,52 @@
+# Publishes the site to GitHub Pages on every push to main, and hourly to refresh the economic calendar.
+# One-time setup: Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Collect site files
+        run: |
+          mkdir -p _site
+          cp account.html *.webp .nojekyll _site/
+          # index.html is written as a page body (it is also previewed on claude.ai, which supplies the
+          # document head). Give the published copy its doctype, charset and mobile viewport.
+          { printf '<!doctype html>\n<html lang="en">\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'; cat index.html; } > _site/index.html
+          if [ -f CNAME ]; then cp CNAME _site/; fi
+      - name: Fetch this week's economic calendar (ForexFactory feed)
+        run: |
+          # One request per run. If the feed is unavailable the site falls back to its sample schedule.
+          if curl -fsS --retry 2 --max-time 30 -A "1percentclub-site (GitHub Pages build)" \
+               https://nfs.faireconomy.media/ff_calendar_thisweek.json -o calendar.json \
+             && python3 -c "import json,sys; d=json.load(open('calendar.json')); sys.exit(0 if isinstance(d, list) else 1)"; then
+            cp calendar.json _site/calendar.json
+          else
+            echo "Calendar feed unavailable; publishing without calendar.json"
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
