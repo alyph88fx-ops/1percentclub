@@ -250,6 +250,7 @@ insert into public.milestones (id, stage, title, xp, sort) values
   ('s3-plan',     3, 'Write your trading plan', 150, 1),
   ('s3-backtest', 3, 'Backtest 100 trades', 150, 2),
   ('s3-dd',       3, 'Hold max drawdown under 5% for a month', 150, 3),
-  ('s4-prop',     4, 'Pass a prop challenge', 150, 1),
-  ('s4-journal',  4, 'Journal 50 live trades', 150, 2)
+  ('s4-prop',     4, 'Risk 1% or less on 50 trades in a row', 150, 1),
+  ('s4-journal',  4, 'Journal 50 live trades', 150, 2),
+  ('s4-review',   4, 'Review your journal every week for 3 months', 150, 3)
 on conflict (id) do nothing;

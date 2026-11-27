@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>1 Percent Club Desk</title>
 <meta name="robots" content="noindex">
-<meta name="description" content="Your 1 Percent Club member desk: lessons, live sessions, your path to funded, membership and support.">
+<meta name="description" content="Your 1 Percent Club member desk: lessons, live sessions, your path to 1% Trader, membership and support.">
 <meta name="theme-color" content="#0a0a0c">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -140,8 +140,8 @@
   function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 3200); }
   const fail = (e, what) => { console.error(e); toast(`Could not ${what}. Check your connection and try again.`); };
   const PLAN_RANK = { starter: 0, pro: 1, lifetime: 2 }, PLAN_NAME = { starter: 'Starter', pro: 'Pro', lifetime: 'Lifetime' };
-  const STAGE_NAME = { 1: 'Foundations', 2: 'Price action', 3: 'Strategy & risk', 4: 'Funded & beyond' };
-  const LEVELS = [[0, 'Pip Rookie'], [300, 'Chart Reader'], [700, 'Trend Spotter'], [1200, 'Range Rider'], [1800, 'Zone Mapper'], [2500, 'Risk Keeper'], [3300, 'Price Reader'], [4200, 'System Builder'], [5200, 'Funded Ready'], [6300, '1% Elite']];
+  const STAGE_NAME = { 1: 'Foundations', 2: 'Price action', 3: 'Strategy & risk', 4: '1% Trader' };
+  const LEVELS = [[0, 'Pip Rookie'], [300, 'Chart Reader'], [700, 'Trend Spotter'], [1200, 'Range Rider'], [1800, 'Zone Mapper'], [2500, 'Risk Keeper'], [3300, 'Price Reader'], [4200, 'System Builder'], [5200, 'Disciplined Trader'], [6300, '1% Trader']];
   const LESSON_XP = 100;
 
   /* ---------------------------------------------------------------- icons */
@@ -319,13 +319,13 @@
     path() {
       const st = selStage, s = stageMiles(st), n = streak(), doneAll = D.milestones.length && D.milestones.every(x => D.done.has(x.id));
       const badges = [['7d', 'Week streak', n >= 7], ['30d', 'Month streak', n >= 30], ['1st', 'First milestone', D.done.size >= 1], ['10', 'Ten milestones', D.done.size >= 10],
-        ['01', 'Foundations done', stagePct(1) >= 1], ['02', 'Price action done', stagePct(2) >= 1], ['FT', 'Funded', D.done.has('s4-prop')], ['EL', '1% Elite', !!doneAll]];
-      return head('path', 'Your path to funded', 'Tick a milestone when you finish it. Each one is worth XP and moves your level.') + `
+        ['01', 'Foundations done', stagePct(1) >= 1], ['02', 'Price action done', stagePct(2) >= 1], ['03', 'Strategy & risk done', stagePct(3) >= 1], ['1%', '1% Trader', !!doneAll]];
+      return head('path', 'Your path to 1% Trader', 'Tick a milestone when you finish it. Each one is worth XP and moves your level.') + `
         <div class="stages">${[1, 2, 3, 4].map(i => `<button class="stg${stageLocked(i) ? ' locked' : ''}" aria-pressed="${i === st}" data-act="stage" data-id="${i}"><span class="n chrome">${pad2(i)}</span><span class="nm">${esc(STAGE_NAME[i])}</span><div class="bar-p ${stagePct(i) >= 1 ? 'g' : ''}"><span style="width:${stagePct(i) * 100}%"></span></div><span class="pc">${stageLocked(i) ? 'Unlocks after Stage 03' : Math.round(stagePct(i) * 100) + '% complete'}</span></button>`).join('')}</div>
         <div class="bento" style="margin-top:16px">
           <article class="p frame s7"><div class="p-h"><span class="lbl">Stage ${pad2(st)} milestones</span><span class="mono" style="color:var(--muted);font-size:12px">${s.filter(x => D.done.has(x.id)).length} / ${s.length}</span></div>
             <div class="miles">${s.map(m => `<button class="mile" role="checkbox" aria-checked="${D.done.has(m.id)}" data-act="mile" data-id="${esc(m.id)}" ${stageLocked(st) ? 'disabled' : ''}><span class="box">${I('check')}</span><span>${esc(m.title)}</span><span class="xp">+${m.xp} XP</span></button>`).join('')}</div>
-            ${stageLocked(st) ? '<p class="note">Finish Stage 03 to unlock the funded track.</p>' : ''}</article>
+            ${stageLocked(st) ? '<p class="note">Finish Stage 03 to unlock the 1% Trader stage.</p>' : ''}</article>
           <article class="p frame s5"><span class="lbl">Badges · ${badges.filter(b => b[2]).length} of ${badges.length}</span><div class="badges">${badges.map(b => `<div class="badge${b[2] ? ' on' : ''}"><span class="b">${b[0]}</span><span>${b[1]}</span></div>`).join('')}</div></article></div>`;
     },
     membership() {
