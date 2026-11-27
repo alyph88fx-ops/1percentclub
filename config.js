@@ -3,6 +3,6 @@
 // row-level security rules decide what each signed-in member may read or change.
 // Never put the service_role / secret key here.
 window.ONEPC = {
-  supabaseUrl: '',
-  supabaseKey: ''
+  supabaseUrl: 'https://sjfppbqnyccpzgvnmowd.supabase.co',
+  supabaseKey: 'sb_publishable_4hob2j9NoGOcrkJUgr4uyQ_QQsGx9wN'
 };
