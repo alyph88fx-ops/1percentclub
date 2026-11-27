@@ -88,22 +88,23 @@
           <button class="btn btn-red btn-sm" type="submit" style="justify-self:start">Add session</button></form></article>
         <article class="p frame"><span class="lbl">Scheduled</span>${A.sessions.length ? `<div class="table-wrap"><table class="admin-table"><thead><tr><th>When</th><th>Session</th><th>Who</th><th class="r"></th></tr></thead><tbody>${A.sessions.map(s => `<tr style="${new Date(s.starts_at) < now ? 'opacity:.5' : ''}"><td class="n">${fmtDT(s.starts_at)}<small>${s.duration_mins} min</small></td><td>${esc(s.title)}<small>${esc(s.kind)} · ${esc(s.host)}${s.join_url ? ' · link set' : ' · no link yet'}</small></td><td>${PLAN_NAME[s.required_plan]}+</td><td class="r"><button class="x" data-act="delSession" data-id="${s.id}">Delete</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="note">Nothing scheduled.</p>'}</article></div>`; },
     lessons() {
-      return `<div class="room-head"><div><h2>Lessons and ebooks</h2><p>Drafts stay hidden from members until you publish them.</p></div></div><div class="admin-grid">
+      return `<div class="room-head"><div><h2>Lessons and ebooks</h2><p>Publishing puts a lesson in every member's Library and on the home page, marks it NEW on their desks for a week and adds it to their notifications. Drafts stay hidden.</p></div></div><div class="admin-grid">
         <article class="p frame"><span class="lbl red">Add a lesson or ebook</span><form class="admin-form" id="lessonForm" novalidate>
           <div class="two"><label for="lKind">Type<select id="lKind"><option value="video">Video</option><option value="ebook">Ebook</option></select></label><label for="lPlan">Who can open it<select id="lPlan">${planOpts('starter')}</select></label></div>
           <label for="lTitle">Title<input class="field-in" id="lTitle" maxlength="140"></label>
           <label for="lDesc">Short description<input class="field-in" id="lDesc" maxlength="300"></label>
           <div class="two"><label for="lCat">Topic<input class="field-in" id="lCat" placeholder="Price action" maxlength="40"></label><label for="lLevel">Level<select id="lLevel"><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>All levels</option></select></label></div>
           <div class="two"><label for="lStage">Stage<select id="lStage"><option value="">—</option><option value="1">01 Foundations</option><option value="2">02 Price action</option><option value="3">03 Strategy &amp; risk</option><option value="4">04 Funded</option></select></label><label for="lLen">Length (mm:ss) or pages<input class="field-in" id="lLen" placeholder="18:42 or 64"></label></div>
-          <label for="lUrl">Video or file link<input class="field-in" id="lUrl" type="url" placeholder="https://"></label>
+          <label for="lUrl">Video or file link (YouTube, Vimeo, Google Drive, or a direct .mp4 / .pdf link)<input class="field-in" id="lUrl" type="url" placeholder="https://youtu.be/…"></label>
           <label for="lCover">Cover / thumbnail image link (optional)<input class="field-in" id="lCover" type="url" placeholder="https://"></label>
-          <label class="check" for="lPub"><input type="checkbox" id="lPub"> Publish now</label>
+          <label class="check" for="lPub"><input type="checkbox" id="lPub" checked> Publish now (members see it straight away)</label>
+          <label class="check" for="lAnn"><input type="checkbox" id="lAnn" checked> Tell members: post a "New video / New ebook" item to every desk's news</label>
           <button class="btn btn-red btn-sm" type="submit" style="justify-self:start">Add</button></form></article>
-        <article class="p frame"><span class="lbl">Library</span>${A.lessons.length ? `<div class="table-wrap"><table class="admin-table"><thead><tr><th>Title</th><th>Type</th><th>Who</th><th>Status</th><th class="r"></th></tr></thead><tbody>${A.lessons.map(l => `<tr><td>${esc(l.title)}<small>${esc([l.category, l.level, l.stage ? 'Stage ' + pad2(l.stage) : '', l.kind === 'video' ? mmss(l.duration_secs) : l.pages ? l.pages + ' pages' : ''].filter(Boolean).join(' · '))}${l.media_url ? '' : ' · no link yet'}</small></td><td>${l.kind === 'video' ? 'Video' : 'Ebook'}</td><td>${PLAN_NAME[l.required_plan]}+</td><td><button class="sw" role="switch" aria-checked="${l.published}" data-act="publish" data-id="${l.id}"><i></i>${l.published ? 'Live' : 'Draft'}</button></td><td class="r"><button class="x" data-act="delLesson" data-id="${l.id}">Delete</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="note">No lessons yet.</p>'}</article></div>`; },
+        <article class="p frame"><div class="p-h"><span class="lbl">Library</span><label class="check" for="autoAnn" style="font-size:13px"><input type="checkbox" id="autoAnn" ${autoAnn() ? 'checked' : ''}> Announce when I switch a draft to Live</label></div>${A.lessons.length ? `<div class="table-wrap"><table class="admin-table"><thead><tr><th>Title</th><th>Type</th><th>Who</th><th>Status</th><th class="r"></th></tr></thead><tbody>${A.lessons.map(l => `<tr><td>${esc(l.title)}<small>${esc([l.category, l.level, l.stage ? 'Stage ' + pad2(l.stage) : '', l.kind === 'video' ? mmss(l.duration_secs) : l.pages ? l.pages + ' pages' : ''].filter(Boolean).join(' · '))}${l.media_url ? '' : ' · no link yet'}</small></td><td>${l.kind === 'video' ? 'Video' : 'Ebook'}</td><td>${PLAN_NAME[l.required_plan]}+</td><td><button class="sw" role="switch" aria-checked="${l.published}" data-act="publish" data-id="${l.id}"><i></i>${l.published ? 'Live' : 'Draft'}</button></td><td class="r"><button class="x" data-act="delLesson" data-id="${l.id}">Delete</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="note">No lessons yet.</p>'}</article></div>`; },
     news() {
       return `<div class="room-head"><div><h2>News from the desk</h2><p>Shows on every member's Today page, newest first.</p></div></div><div class="admin-grid">
         <article class="p frame"><span class="lbl red">Post news</span><form class="admin-form" id="newsForm" novalidate>
-          <label for="nTag">Tag<select id="nTag"><option>News</option><option>Course</option><option>Schedule</option><option>Indicator</option></select></label>
+          <label for="nTag">Tag<select id="nTag"><option>News</option><option>New video</option><option>New ebook</option><option>Course</option><option>Schedule</option><option>Indicator</option></select></label>
           <label for="nTitle">Headline<input class="field-in" id="nTitle" maxlength="140"></label>
           <label for="nBody">Text<textarea class="field-in" id="nBody" rows="4" maxlength="2000" style="resize:vertical"></textarea></label>
           <button class="btn btn-red btn-sm" type="submit" style="justify-self:start">Post</button></form></article>
@@ -129,11 +130,19 @@
     if (a.dataset.act === 'delSession' && confirmTwice(a)) act(async () => must(await sb.from('live_sessions').delete().eq('id', id)), 'Session deleted.', 'sessions');
     if (a.dataset.act === 'delLesson' && confirmTwice(a)) act(async () => must(await sb.from('lessons').delete().eq('id', id)), 'Deleted.', 'lessons');
     if (a.dataset.act === 'delNews' && confirmTwice(a)) act(async () => must(await sb.from('announcements').delete().eq('id', id)), 'Deleted.', 'news');
-    if (a.dataset.act === 'publish') { const on = a.getAttribute('aria-checked') !== 'true'; act(async () => must(await sb.from('lessons').update({ published: on }).eq('id', id)), on ? 'Published: members can see it now.' : 'Moved back to draft.', 'lessons'); }
+    if (a.dataset.act === 'publish') { const on = a.getAttribute('aria-checked') !== 'true', l = A.lessons.find(x => x.id === id), ann = on && autoAnn();
+      act(async () => { must(await sb.from('lessons').update({ published: on }).eq('id', id)); if (ann && l) await announce(l.kind, l.title, l.description); },
+        on ? (ann ? 'Published and announced to every member.' : 'Published: members can see it now.') : 'Moved back to draft.', 'lessons'); }
     if (a.dataset.act === 'setPlan') { const row = a.closest('tr'), plan = $('[data-f="plan"]', row).value, cycle = $('[data-f="cycle"]', row).value || null, d = $('[data-f="renews"]', row).value;
       if (plan === 'pro' && (!cycle || !d)) return toast('For Pro, choose Monthly or Yearly and a renewal date.');
       act(async () => must(await sb.rpc('admin_set_plan', { member: id, new_plan: plan, new_cycle: cycle, renews: d ? new Date(d + 'T23:59:00').toISOString() : null })), 'Plan saved.', 'members'); }
   });
+  // announcements for new lessons land in every member's news and notifications
+  const autoAnn = () => { try { return localStorage.getItem('1pc-autoAnn') !== '0'; } catch (e) { return true; } };
+  document.addEventListener('change', e => { if (e.target.id === 'autoAnn') try { localStorage.setItem('1pc-autoAnn', e.target.checked ? '1' : '0'); } catch (err) {} });
+  async function announce(kind, title, desc) {
+    must(await sb.from('announcements').insert({ tag: kind === 'video' ? 'New video' : 'New ebook', title, body: desc || (kind === 'video' ? 'A new video lesson is in your Library.' : 'A new ebook is on your shelf.') }));
+    try { await loaders.news(); } catch (e) {} }
   // deletes need a second click, so nothing disappears by accident
   function confirmTwice(btn) { if (btn.dataset.armed) return true; btn.dataset.armed = '1'; const t = btn.textContent; btn.textContent = 'Click again to delete'; setTimeout(() => { delete btn.dataset.armed; btn.textContent = t; }, 3000); return false; }
 
@@ -146,9 +155,10 @@
         host: $('#sHost').value.trim() || 'The 1 Percent Club desk', seats: $('#sSeats').value === '' ? null : +$('#sSeats').value, join_url: $('#sUrl').value.trim() || null })), 'Session added. Members can see it now.', 'sessions'); }
     if (f.id === 'lessonForm') { const title = $('#lTitle').value.trim(), kind = $('#lKind').value, len = $('#lLen').value.trim();
       if (title.length < 2) return toast('Add a title.');
-      act(async () => must(await sb.from('lessons').insert({ kind, title, description: $('#lDesc').value.trim(), category: $('#lCat').value.trim(), level: $('#lLevel').value, stage: $('#lStage').value ? +$('#lStage').value : null,
+      act(async () => { must(await sb.from('lessons').insert({ kind, title, description: $('#lDesc').value.trim(), category: $('#lCat').value.trim(), level: $('#lLevel').value, stage: $('#lStage').value ? +$('#lStage').value : null,
         duration_secs: kind === 'video' ? secs(len) : null, pages: kind === 'ebook' && /^\d+$/.test(len) ? +len : null, media_url: $('#lUrl').value.trim() || null, cover_url: $('#lCover').value.trim() || null,
-        required_plan: $('#lPlan').value, published: $('#lPub').checked, sort: A.lessons.length })), $('#lPub').checked ? 'Added and published.' : 'Added as a draft.', 'lessons'); }
+        required_plan: $('#lPlan').value, published: $('#lPub').checked, sort: A.lessons.length }));
+        if ($('#lPub').checked && $('#lAnn').checked) await announce(kind, title, $('#lDesc').value.trim()); }, $('#lPub').checked ? ($('#lAnn').checked ? 'Published and announced to every member.' : 'Published: members can see it now.') : 'Added as a draft.', 'lessons'); }
     if (f.id === 'newsForm') { const title = $('#nTitle').value.trim(); if (title.length < 2) return toast('Add a headline.');
       act(async () => must(await sb.from('announcements').insert({ tag: $('#nTag').value, title, body: $('#nBody').value.trim() })), 'Posted.', 'news'); }
   });
