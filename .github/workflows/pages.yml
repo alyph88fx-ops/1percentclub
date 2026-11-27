@@ -44,6 +44,43 @@ jobs:
           else
             echo "Calendar feed unavailable; publishing without calendar.json"
           fi
+      # Gold (XAU/USD): record the spot price every run (hourly) and publish the last 48 hours as
+      # xau-history.json for the home page's 24-hour change and sparkline. The cache carries the
+      # history from one run to the next.
+      - name: Restore gold price history
+        uses: actions/cache/restore@v4
+        with:
+          path: xau-history.json
+          key: xau-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: xau-
+      - name: Record gold price (gold-api.com)
+        run: |
+          python3 - <<'PY'
+          import json, time, urllib.request
+          path = 'xau-history.json'
+          try:
+              hist = json.load(open(path))
+          except Exception:
+              hist = []
+          try:
+              req = urllib.request.Request('https://api.gold-api.com/price/XAU', headers={'User-Agent': '1percentclub-site (GitHub Pages build)'})
+              price = float(json.load(urllib.request.urlopen(req, timeout=20))['price'])
+              if price > 0:
+                  hist.append({'t': int(time.time()), 'p': round(price, 2)})
+          except Exception as e:
+              print('Gold price unavailable this run:', e)
+          cutoff = time.time() - 48 * 3600
+          hist = [x for x in hist if x.get('t', 0) >= cutoff][-300:]
+          json.dump(hist, open(path, 'w'), separators=(',', ':'))
+          print('Gold history points:', len(hist))
+          PY
+          cp xau-history.json _site/xau-history.json
+      - name: Save gold price history
+        uses: actions/cache/save@v4
+        continue-on-error: true
+        with:
+          path: xau-history.json
+          key: xau-${{ github.run_id }}-${{ github.run_attempt }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

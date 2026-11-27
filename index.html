@@ -192,7 +192,7 @@ ul, ol { padding: 0; list-style: none; }
 .sess:first-child { padding-left: 0; } .quote { border-right: 0; }
 .sess-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .sess-name { font: 600 11px/1 var(--f-ui); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
-.sess-time { font: 500 22px/1 var(--f-num); font-variant-numeric: tabular-nums; }
+.sess-time { font: 500 19px/1 var(--f-num); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .dayline { position: relative; height: 6px; background: var(--panel-2); box-shadow: inset 0 0 0 1px var(--line); }
 .dayline i { position: absolute; top: 0; bottom: 0; background: rgba(220,20,60,.45); }
 .sess.is-open .dayline i { background: var(--crimson-hi); box-shadow: 0 0 10px rgba(255,45,85,.6); }
@@ -201,12 +201,22 @@ ul, ol { padding: 0; list-style: none; }
 .quote .q-mid { display: flex; justify-content: space-between; align-items: baseline; }
 .quote .q-px { font: 500 22px/1 var(--f-num); }
 .quote svg { width: 100%; height: 20px; display: block; }
+.status-head { display: flex; justify-content: space-between; gap: 12px; padding-top: 14px; font: 600 10px/1 var(--f-ui); letter-spacing: .2em; text-transform: uppercase; color: var(--dim); }
+.status-head .mono { letter-spacing: .06em; color: var(--muted); font-size: 12px; }
+.sess-cd { font: 500 11px/1 var(--f-num); color: var(--dim); }
+.sess.is-open .sess-cd { color: var(--bull); }
+.q-live { display: inline-flex; align-items: center; gap: 6px; }
+.q-live.stale { color: var(--dim); } .q-live.stale .dot-live { background: var(--dim); box-shadow: none; animation: none; }
+.q-foot { font: 500 10px/1.2 var(--f-num); color: var(--dim); }
 @media (max-width: 960px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-visual { height: 440px; margin-top: 8px; }
   .monolith { inset: 0 2%; }
   .hud.a { right: 0; } .hud.b { left: 0; }
   .status-row { grid-template-columns: repeat(5, minmax(160px, 1fr)); }
+  .status-row .quote { order: -1; padding-left: 0; border-right: 1px solid var(--line); }
+  .status-row .sess:first-child { padding-left: 18px; }
+  .status-head { flex-wrap: wrap; } .status-head .mono { white-space: nowrap; }
 }
 
 /* ---------- hub ---------- */
@@ -582,15 +592,17 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
 
     <div class="status">
       <div class="wrap">
-        <div class="status-row" id="sessions" aria-label="Forex session clocks">
-          <div class="sess" data-tz="Australia/Sydney"><div class="sess-top"><span class="sess-name">Sydney</span><span class="pill closed">–</span></div><span class="sess-time">--:--</span><div class="dayline"></div></div>
-          <div class="sess" data-tz="Asia/Tokyo"><div class="sess-top"><span class="sess-name">Tokyo</span><span class="pill closed">–</span></div><span class="sess-time">--:--</span><div class="dayline"></div></div>
-          <div class="sess" data-tz="Europe/London"><div class="sess-top"><span class="sess-name">London</span><span class="pill closed">–</span></div><span class="sess-time">--:--</span><div class="dayline"></div></div>
-          <div class="sess" data-tz="America/New_York"><div class="sess-top"><span class="sess-name">New York</span><span class="pill closed">–</span></div><span class="sess-time">--:--</span><div class="dayline"></div></div>
-          <div class="quote" aria-label="EUR/USD sample live price">
-            <div class="q-top"><span>EUR/USD · sample</span><span class="dot-live"></span></div>
-            <div class="q-mid"><span class="q-px" id="hudPx">1.08420</span><span class="mono up" id="hudChg">+0.12%</span></div>
-            <svg viewBox="0 0 160 20" preserveAspectRatio="none"><path id="hudSpark" fill="none" stroke="#ff2d55" stroke-width="1.5"/></svg>
+        <div class="status-head"><span>Forex sessions · Malaysia time (MYT)</span><span class="mono" id="mytClock">--:--:--</span></div>
+        <div class="status-row" id="sessions" aria-label="Forex sessions in Malaysia time">
+          <div class="sess" data-tz="Australia/Sydney"><div class="sess-top"><span class="sess-name">Sydney</span><span class="pill closed">–</span></div><span class="sess-time">--:--–--:--</span><span class="sess-cd">&nbsp;</span><div class="dayline"></div></div>
+          <div class="sess" data-tz="Asia/Tokyo"><div class="sess-top"><span class="sess-name">Tokyo</span><span class="pill closed">–</span></div><span class="sess-time">--:--–--:--</span><span class="sess-cd">&nbsp;</span><div class="dayline"></div></div>
+          <div class="sess" data-tz="Europe/London"><div class="sess-top"><span class="sess-name">London</span><span class="pill closed">–</span></div><span class="sess-time">--:--–--:--</span><span class="sess-cd">&nbsp;</span><div class="dayline"></div></div>
+          <div class="sess" data-tz="America/New_York"><div class="sess-top"><span class="sess-name">New York</span><span class="pill closed">–</span></div><span class="sess-time">--:--–--:--</span><span class="sess-cd">&nbsp;</span><div class="dayline"></div></div>
+          <div class="quote" aria-label="Live gold price, XAU/USD">
+            <div class="q-top"><span>XAU/USD · Gold</span><span class="q-live" id="hudState"><span class="dot-live"></span>Live</span></div>
+            <div class="q-mid"><span class="q-px" id="hudPx">—</span><span class="mono" id="hudChg" title="Change over the last 24 hours"></span></div>
+            <svg viewBox="0 0 160 20" preserveAspectRatio="none" aria-hidden="true"><path id="hudSpark" fill="none" stroke="#ff2d55" stroke-width="1.5"/></svg>
+            <span class="q-foot" id="hudFoot">Spot price · updates every 10s</span>
           </div>
         </div>
       </div>
@@ -660,7 +672,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
             <button role="tab" aria-selected="false" data-tf="H4">H4</button>
             <button role="tab" aria-selected="false" data-tf="D1">D1</button>
           </div>
-          <span class="tb-clock" id="tbClock">UTC --:--:--</span>
+          <span class="tb-clock" id="tbClock">MYT --:--:--</span>
         </div>
         <div class="term-body">
           <aside class="watch" aria-label="Watchlist">
@@ -981,7 +993,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
     <div class="wordmark-wrap" aria-hidden="true"><img class="wordmark" id="wordmark" src="1pc-logo.webp" alt="" width="821" height="322"></div>
     <div class="risk-note">
       <p><b>Risk warning.</b> Trading foreign exchange, CFDs and crypto on margin carries a high level of risk and may not be suitable for all investors. You could lose more than your initial deposit; read the <a href="risk.html">Risk Disclosure</a>. 1 Percent Club provides education only and does not give investment advice or manage funds. Past performance and backtests are not indicative of future results.</p>
-      <p>Prices, counts, charts, alerts and calendar times shown on this site are illustrative; session clocks use your device's time. © 2026 1 Percent Club.</p>
+      <p>Session times are shown in Malaysia time (MYT). The gold price is a live spot price from gold-api.com, for information only. Other prices, counts, charts and alerts shown on this site are illustrative. © 2026 1 Percent Club.</p>
     </div>
   </div>
 </footer>
@@ -1083,42 +1095,83 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
   menuBtn.addEventListener('click', () => { const open = menu.hidden; menu.hidden = !open; menuBtn.setAttribute('aria-expanded', String(open)); });
   $$('a', menu).forEach(a => a.addEventListener('click', () => { menu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); }));
 
-  // ---------- session clocks: each market 08:00-17:00 local on weekdays, drawn on a 24h UTC bar ----------
+  // ---------- session clocks: each market trades 08:00-17:00 its own local time on weekdays (daylight saving
+  // included); shown here in Malaysia time (MYT, UTC+8) on a 24-hour MYT bar, with a countdown to the next open or close
   const tzFmt = new Map();
   function tzParts(tz, d) {
     let f = tzFmt.get(tz); if (!f) { f = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', weekday: 'short', hourCycle: 'h23' }); tzFmt.set(tz, f); }
     const p = {}; f.formatToParts(d).forEach(x => { p[x.type] = x.value; }); return { h: (+p.hour) % 24, m: +p.minute, wd: p.weekday };
   }
   const weekend = wd => wd === 'Sat' || wd === 'Sun';
+  const MYT = 'Asia/Kuala_Lumpur';
+  const isOpen = (tz, d) => { const t = tzParts(tz, d), lm = t.h * 60 + t.m; return !weekend(t.wd) && lm >= 480 && lm < 1020; };
+  const hm = m => pad2(Math.floor(((m % 1440) + 1440) % 1440 / 60)) + ':' + pad2(((m % 60) + 60) % 60);
+  const dur = ms => { const m = Math.max(1, Math.round(ms / 60000)), d = Math.floor(m / 1440), h = Math.floor(m % 1440 / 60), mm = m % 60;
+    return d ? `${d}d ${h}h` : h ? `${h}h ${pad2(mm)}m` : `${mm}m`; };
+  function nextFlip(tz, open, now) { // first 5-minute mark (up to 4 days ahead) where the session changes state
+    const step = 300000; let t = Math.ceil(now / step) * step;
+    for (let i = 0; i < 1152; i++, t += step) if (isOpen(tz, new Date(t)) !== open) return t;
+    return null; }
   function renderSessions() {
     const now = new Date(), um = now.getUTCHours() * 60 + now.getUTCMinutes();
+    const my = tzParts(MYT, now), mym = my.h * 60 + my.m;
     $$('.sess').forEach(el => {
       let t; try { t = tzParts(el.dataset.tz, now); } catch (e) { return; }
       const lm = t.h * 60 + t.m; let off = lm - um; if (off > 840) off -= 1440; if (off < -720) off += 1440;
       const open = !weekend(t.wd) && lm >= 480 && lm < 1020;
       el.classList.toggle('is-open', open);
       const pill = $('.pill', el); pill.textContent = open ? 'Open' : 'Closed'; pill.className = 'pill ' + (open ? 'open' : 'closed');
-      $('.sess-time', el).textContent = pad2(t.h) + ':' + pad2(t.m);
-      const s = ((480 - off) % 1440 + 1440) % 1440, segs = s + 540 <= 1440 ? [[s, 540]] : [[s, 1440 - s], [0, s + 540 - 1440]];
-      $('.dayline', el).innerHTML = segs.map(([a, w]) => `<i style="left:${(a / 14.4).toFixed(2)}%;width:${(w / 14.4).toFixed(2)}%"></i>`).join('') + `<b style="left:${(um / 14.4).toFixed(2)}%"></b>`;
-      el.title = 'Session 08:00-17:00 local time. The bar is today in UTC; the white mark is now.';
+      const s = ((480 - off + 480) % 1440 + 1440) % 1440;               // session start in MYT minutes
+      $('.sess-time', el).textContent = hm(s) + '–' + hm(s + 540);
+      const flip = nextFlip(el.dataset.tz, open, now.getTime());
+      $('.sess-cd', el).textContent = flip ? (open ? 'Closes in ' : 'Opens in ') + dur(flip - now.getTime()) : '';
+      const segs = s + 540 <= 1440 ? [[s, 540]] : [[s, 1440 - s], [0, s + 540 - 1440]];
+      $('.dayline', el).innerHTML = segs.map(([a, w]) => `<i style="left:${(a / 14.4).toFixed(2)}%;width:${(w / 14.4).toFixed(2)}%"></i>`).join('') + `<b style="left:${(mym / 14.4).toFixed(2)}%"></b>`;
+      el.title = `${el.querySelector('.sess-name').textContent} session: ${hm(s)}–${hm(s + 540)} Malaysia time on weekdays. The bar is today in Malaysia time; the white mark is now.`;
     });
   }
+  const mytClock = $('#mytClock'), mytFmt = new Intl.DateTimeFormat('en-GB', { timeZone: MYT, weekday: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' });
+  const tickMyt = () => { mytClock.textContent = mytFmt.format(new Date()).replace(',', '') + ' MYT'; };
+  tickMyt(); setInterval(tickMyt, 1000);
   renderSessions(); setInterval(renderSessions, 15000);
   const tbClock = $('#tbClock');
-  const tickClock = () => { const d = new Date(); tbClock.textContent = `UTC ${pad2(d.getUTCHours())}:${pad2(d.getUTCMinutes())}:${pad2(d.getUTCSeconds())}`; };
+  const tbFmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' });
+  const tickClock = () => { tbClock.textContent = 'MYT ' + tbFmt.format(new Date()); };
   tickClock(); setInterval(tickClock, 1000);
 
-  // ---------- EUR/USD quote in the status bar ----------
-  const hudR = rng(5); let hudP = 1.08420; const hudOpen = hudP; const spark = []; for (let i = 0; i < 40; i++) { hudP += (hudR() - .48) * .00018; spark.push(hudP); }
-  function updateHud() {
-    hudP += (hudR() - .48) * .00018; spark.push(hudP); spark.shift();
-    const mn = Math.min(...spark), mx = Math.max(...spark);
-    $('#hudSpark').setAttribute('d', spark.map((v, i) => `${i ? 'L' : 'M'}${(i / (spark.length - 1) * 160).toFixed(1)} ${(18 - (v - mn) / (mx - mn || 1) * 16).toFixed(1)}`).join(' '));
-    $('#hudPx').textContent = hudP.toFixed(5); const pct = (hudP - hudOpen) / hudOpen * 100; const ch = $('#hudChg');
-    ch.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%'; ch.className = 'mono ' + (pct >= 0 ? 'up' : 'down');
+  // ---------- live gold (XAU/USD) in the status bar ----------
+  // Live spot price from gold-api.com every 10 seconds. xau-history.json (written hourly by the Pages workflow)
+  // supplies the last 48 hours, so the change and the sparkline cover a real 24 hours.
+  const gold = { hist: [], ticks: [], last: null, at: 0 };
+  const fmtGold = v => v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function paintGold() {
+    const now = Date.now() / 1000, pts = [...gold.hist.filter(x => x.t >= now - 86400), ...gold.ticks];
+    if (gold.last == null && !pts.length) return;
+    const price = gold.last ?? pts[pts.length - 1].p, px = $('#hudPx'), prev = px.dataset.p ? +px.dataset.p : null;
+    px.textContent = fmtGold(price); px.dataset.p = price;
+    if (prev != null && prev !== price) { px.classList.remove('flash-up', 'flash-down'); void px.offsetWidth; px.classList.add(price > prev ? 'flash-up' : 'flash-down'); }
+    const base = gold.hist.find(x => x.t >= now - 86400 - 1800), ch = $('#hudChg');
+    if (base && now - base.t > 6 * 3600) { const pct = (price - base.p) / base.p * 100; ch.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '% 24h'; ch.className = 'mono ' + (pct >= 0 ? 'up' : 'down'); }
+    else { ch.textContent = ''; }
+    const series = pts.map(x => x.p); if (gold.last != null && (!series.length || series[series.length - 1] !== gold.last)) series.push(gold.last);
+    if (series.length > 1) { const mn = Math.min(...series), mx = Math.max(...series);
+      $('#hudSpark').setAttribute('d', series.map((v, i) => `${i ? 'L' : 'M'}${(i / (series.length - 1) * 160).toFixed(1)} ${(18 - (v - mn) / (mx - mn || 1) * 16).toFixed(1)}`).join(' '));
+      $('#hudSpark').setAttribute('stroke', series[series.length - 1] >= series[0] ? C.bull : C.bear); }
+    const age = Date.now() - gold.at, live = gold.at && age < 60000, st = $('#hudState');
+    st.classList.toggle('stale', !live); st.lastChild.textContent = live ? 'Live' : 'Delayed';
+    $('#hudFoot').textContent = gold.at ? `Spot price · ${live ? 'updates every 10s' : 'last update ' + new Date(gold.at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}` : 'Spot price';
   }
-  updateHud(); if (!reduce) setInterval(updateHud, 900);
+  async function pollGold() {
+    if (document.hidden) return;
+    try { const r = await fetch('https://api.gold-api.com/price/XAU', { cache: 'no-store' }); if (!r.ok) throw r.status; const d = await r.json();
+      const p = +d.price; if (!isFinite(p) || p <= 0) throw 'bad price';
+      gold.last = Math.round(p * 100) / 100; gold.at = Date.now(); gold.ticks.push({ t: Date.now() / 1000, p: gold.last }); if (gold.ticks.length > 360) gold.ticks.shift();
+    } catch (e) { /* keep the last good price; the card shows "Delayed" */ }
+    paintGold();
+  }
+  fetch('xau-history.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : []).then(h => { if (Array.isArray(h)) { gold.hist = h.filter(x => x && isFinite(x.t) && isFinite(x.p)); if (gold.last == null && gold.hist.length) gold.at = gold.hist[gold.hist.length - 1].t * 1000; paintGold(); } }).catch(() => {});
+  pollGold(); setInterval(pollGold, 10000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) pollGold(); });
 
   // ---------- hub dial ----------
   const HUB = {
