@@ -896,11 +896,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
       <div class="sec-head">
         <span class="eyebrow">Membership</span>
         <h2 id="priceTitle">Pick your card. <span class="red">Everything on the desk.</span></h2>
-        <p>Start free and upgrade when you are ready for the full library. Cancel any time.</p>
-      </div>
-      <div class="bill" role="group" aria-label="Billing period">
-        <button aria-pressed="true" data-bill="monthly">Monthly</button>
-        <button aria-pressed="false" data-bill="yearly">Yearly <span class="save">-25%</span></button>
+        <p>Register free, and upgrade when you are ready for the full library. Prices in US dollars. Cancel Pro any time.</p>
       </div>
       <div class="tiers">
         <article class="tier">
@@ -908,10 +904,10 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
             <div class="kc-top"><img src="1pc-logo.webp" alt="" width="821" height="322"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 6c2 3.6 2 8.4 0 12M12 4c3 4.8 3 11.2 0 16M16 2c4 6 4 14 0 20"/></svg></div>
             <span class="kc-chip"></span>
             <div><span class="kc-num">1PC 0000 0000 0001</span>
-              <div class="kc-bot"><div><span class="kc-label">Member</span><span class="kc-tier">Starter</span></div><div class="kc-price"><span class="val">$0</span><span class="per">forever</span></div></div></div>
+              <div class="kc-bot"><div><span class="kc-label">Member</span><span class="kc-tier">Starter</span></div><div class="kc-price"><span class="val">$0</span><span class="per">free · register</span></div></div></div>
           </div>
           <div class="tier-body">
-            <p>For your first month on the charts.</p>
+            <p>Free: just register.</p>
             <ul><li>The Foundations track</li><li>Headline and Storyline ebook</li><li>Trend Ribbon Lite indicator (coming soon)</li><li>Position size calculator</li></ul>
             <a class="btn btn-dark" href="#join">Start free</a>
           </div>
@@ -920,12 +916,12 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
           <div class="keycard kc-pro">
             <div class="kc-top"><img src="1pc-logo.webp" alt="" width="821" height="322"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 6c2 3.6 2 8.4 0 12M12 4c3 4.8 3 11.2 0 16M16 2c4 6 4 14 0 20"/></svg></div>
             <span class="kc-chip"></span>
-            <div><span class="kc-num">1PC 0000 0000 0039</span>
-              <div class="kc-bot"><div><span class="kc-label">Member</span><span class="kc-tier">Pro</span></div><div class="kc-price"><span class="val" id="proVal">$39</span><span class="per" id="proPer">per month</span></div></div></div>
+            <div><span class="kc-num">1PC 0000 0000 0050</span>
+              <div class="kc-bot"><div><span class="kc-label">Member</span><span class="kc-tier">Pro</span></div><div class="kc-price"><span class="val" id="proVal">$50</span><span class="per" id="proPer">per month</span></div></div></div>
           </div>
           <div class="tier-body">
             <span class="tag">Most popular</span>
-            <p>The full library, updated every week.</p>
+            <p>The full library, US$50 a month. Cancel any time.</p>
             <ul><li>Every video lesson and replay</li><li>Every ebook, PDF and EPUB</li><li>Indicators for TV, MT4 and MT5 (coming soon)</li><li>Live sessions at the London open</li></ul>
             <a class="btn btn-red magnetic" href="#join">Go Pro</a>
           </div>
@@ -934,11 +930,11 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
           <div class="keycard kc-life">
             <div class="kc-top"><span class="plate"><img src="1pc-logo.webp" alt="" width="821" height="322"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 6c2 3.6 2 8.4 0 12M12 4c3 4.8 3 11.2 0 16M16 2c4 6 4 14 0 20"/></svg></div>
             <span class="kc-chip"></span>
-            <div><span class="kc-num">1PC 0000 0000 0699</span>
-              <div class="kc-bot"><div><span class="kc-label">Member</span><span class="kc-tier">Lifetime</span></div><div class="kc-price"><span class="val">$699</span><span class="per">one time</span></div></div></div>
+            <div><span class="kc-num">1PC 0000 0000 0500</span>
+              <div class="kc-bot"><div><span class="kc-label">Member</span><span class="kc-tier">Lifetime</span></div><div class="kc-price"><span class="val">$500</span><span class="per">one time</span></div></div></div>
           </div>
           <div class="tier-body">
-            <p>Pay once. Keep every future update.</p>
+            <p>US$500 once. Keep every future update.</p>
             <ul><li>Everything in Pro, forever</li><li>Every indicator as it launches</li><li>Private desk community</li><li>Monthly trade review call</li></ul>
             <a class="btn btn-chrome" href="#join">Get Lifetime</a>
           </div>
@@ -1535,10 +1531,6 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
   labTabs.forEach(t => t.addEventListener('click', () => setInd(t.dataset.ind)));
 
   // ---------- membership ----------
-  const billBtns = $$('.bill button'), proVal = $('#proVal'), proPer = $('#proPer'); const priceState = { v: 39 };
-  billBtns.forEach(b => b.addEventListener('click', () => { billBtns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    const yearly = b.dataset.bill === 'yearly', target = yearly ? 29 : 39; proPer.textContent = yearly ? 'per month, $348 / yr' : 'per month';
-    if (hasGsap && !reduce) gsap.to(priceState, { v: target, duration: .6, ease: 'power2.out', onUpdate: () => { proVal.textContent = '$' + Math.round(priceState.v); } }); else proVal.textContent = '$' + target; }));
   if (fine && !reduce) $$('.keycard').forEach(k => {
     k.addEventListener('pointermove', e => { const r = k.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
       k.style.setProperty('--ry', ((px - .5) * 16).toFixed(2) + 'deg'); k.style.setProperty('--rx', ((.5 - py) * 12).toFixed(2) + 'deg');

@@ -22,8 +22,8 @@ PAGES = {
 <p>Read the <a href="risk.html">Risk Disclosure</a> before you trade.</p>'''),
       ('Who can join', '<p>You must be at least 18 years old and able to enter a binding agreement. Trading leveraged products may be restricted where you live; it is your responsibility to follow the laws that apply to you.</p>'),
       ('Your account', '<p>Keep your login details private and tell us straight away if you think someone else has used your account. Accounts are personal: one person per membership. We may suspend an account that is shared, resold or used to break these terms.</p>'),
-      ('Memberships and payments', '''<p>We offer a free Starter membership and paid memberships (for example Pro, billed monthly or yearly, and a one-time Lifetime membership). Prices, what each plan includes and how it renews are shown before you pay.</p>
-<ul><li><b>Renewals.</b> Monthly and yearly plans renew automatically until you cancel. You can turn off auto-renew at any time from your member desk; you keep access until the end of the period you paid for.</li>
+      ('Memberships and payments', '''<p>We offer a free Starter membership and paid memberships (Pro at US$50 a month and a one-time Lifetime membership at US$500). Prices, what each plan includes and how it renews are shown before you pay.</p>
+<ul><li><b>Renewals.</b> Monthly plans renew automatically until you cancel. You can turn off auto-renew at any time from your member desk; you keep access until the end of the period you paid for.</li>
 <li><b>Refunds.</b> If you are not happy with your first paid purchase, email us within 7 days and we will refund it. After that, payments are not refundable except where the law requires it.</li>
 <li><b>Lifetime.</b> "Lifetime" means for as long as 1 Percent Club operates the membership, and includes future updates to the content and indicators it covers.</li>
 <li><b>Price changes.</b> We may change prices for future billing periods. We will tell you at least 14 days before a change affects a renewal.</li></ul>'''),
