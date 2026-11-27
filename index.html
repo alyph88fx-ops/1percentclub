@@ -173,7 +173,7 @@ ul, ol { padding: 0; list-style: none; }
   background: rgba(17,17,20,.8); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px var(--line-2); }
 .hud .k { font: 600 10px/1 var(--f-ui); letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
 .hud .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.hud .v { font: 500 17px/1 var(--f-ui); }
+.hud .v { font: 500 17px/1.15 var(--f-ui); max-width: 24ch; }
 .hud.a { top: 9%; right: 0; } .hud.b { bottom: 12%; left: 2%; }
 /* endless band */
 .band { position: relative; z-index: 2; margin-top: clamp(20px, 3vw, 36px); border-block: 1px solid var(--line); background: linear-gradient(90deg, var(--ink), rgba(220,20,60,.06), var(--ink)); overflow: hidden;
@@ -265,7 +265,7 @@ ul, ol { padding: 0; list-style: none; }
 .tb-brand { color: var(--crimson-hi); }
 .tb-sym { font-size: 15px; }
 .tb-clock { margin-left: auto; color: var(--muted); font-family: var(--f-num); letter-spacing: .04em; }
-.term-body { display: grid; grid-template-columns: 240px minmax(0, 1fr) 300px; min-height: 470px; }
+.term-body { display: grid; grid-template-columns: 320px minmax(0, 1fr) 280px; min-height: 470px; }
 .watch { border-right: 1px solid var(--line); display: grid; align-content: start; min-width: 0; }
 .pane-h { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; font: 600 11px/1 var(--f-ui); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
 .pane-h small { font: 500 10px/1 var(--f-ui); letter-spacing: .12em; color: var(--dim); display: inline-flex; gap: 6px; align-items: center; }
@@ -282,7 +282,13 @@ ul, ol { padding: 0; list-style: none; }
 .flash-up { animation: fu .9s; } .flash-down { animation: fd .9s; }
 @keyframes fu { from { color: var(--bull); text-shadow: 0 0 10px var(--bull); } }
 @keyframes fd { from { color: var(--bear); text-shadow: 0 0 10px var(--bear); } }
-.term-chart { padding: 12px 14px 8px; display: grid; grid-template-rows: auto 1fr; gap: 8px; min-width: 0; }
+.term-chart { padding: 0; display: grid; min-width: 0; min-height: 470px; }
+.tv-box { position: relative; min-height: 420px; height: 100%; }
+.tv-box > div, .tv-box iframe { height: 100% !important; width: 100% !important; }
+.tv-chart { min-height: 470px; }
+.sym-sel { padding: 8px 10px; background: var(--ink); color: var(--fg); border: 0; box-shadow: inset 0 0 0 1px var(--line-2); font: 600 13px/1 var(--f-ui); letter-spacing: .06em; }
+.tl-row { display: grid; grid-template-columns: 70px 1fr auto; gap: 12px; align-items: center; padding: 10px 16px; border-bottom: 1px solid rgba(37,38,44,.6); font-size: 14px; }
+.tl-row .tm { font: 500 13px/1 var(--f-num); } .tl-row .in { font: 500 12px/1 var(--f-num); color: var(--dim); }
 .ohlc { display: flex; flex-wrap: wrap; gap: 4px 14px; font: 500 12px/1.3 var(--f-num); color: var(--dim); min-height: 16px; }
 .ohlc b { color: var(--fg); font-weight: 500; }
 canvas.chart { width: 100%; height: 100%; min-height: 340px; display: block; touch-action: pan-y; }
@@ -314,7 +320,7 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: #
 .sig-row { grid-template-columns: 70px 1fr auto; }
 .sig-row .tm { font: 500 12px/1 var(--f-num); color: var(--dim); }
 .sig-row .what { display: grid; gap: 2px; min-width: 0; } .sig-row .what b { font: 600 14px/1.2 var(--f-body); } .sig-row .what span { color: var(--dim); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-@media (max-width: 1100px) { .term-body { grid-template-columns: 210px minmax(0, 1fr); } .risk { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); } .calc { grid-template-columns: repeat(3, 1fr) 1.3fr; align-items: end; } .gauge-wrap { border-top: 0; } }
+@media (max-width: 1100px) { .term-body { grid-template-columns: 290px minmax(0, 1fr); } .risk { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); } .calc { grid-template-columns: repeat(3, 1fr) 1.3fr; align-items: end; } .gauge-wrap { border-top: 0; } }
 @media (max-width: 760px) {
   .term-body { grid-template-columns: 1fr; }
   .watch { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -436,7 +442,7 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: #
 
 /* ---------- numbers ---------- */
 .numbers { border-block: 1px solid var(--line); }
-.numbers .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.numbers .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 .stat { padding: clamp(26px, 4vw, 44px) 20px; display: grid; gap: 10px; border-right: 1px solid var(--line); }
 .stat:first-child { padding-left: 0; } .stat:last-child { border-right: 0; }
 .stat .n { font: 400 clamp(52px, 6.6vw, 96px)/.9 var(--f-display); font-variant-numeric: tabular-nums; }
@@ -572,13 +578,13 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
         </div>
         <canvas id="chrome3d" aria-hidden="true"></canvas>
         <div class="chrome-fallback" id="chromeFallback" hidden><img src="1pc-logo.webp" alt="" width="821" height="322" style="width:80%;height:auto"></div>
-        <div class="hud a" aria-hidden="true">
-          <span class="k">1% Trend Ribbon · GBP/USD H1</span>
-          <div class="row"><span class="v">Cross</span><span class="pill long">Long</span></div>
+        <div class="hud a" id="hudLive">
+          <span class="k" id="hudLiveK">Next live session</span>
+          <div class="row"><span class="v" id="hudLiveV">Schedule coming soon</span><span class="pill long" id="hudLiveP" hidden></span></div>
         </div>
-        <div class="hud b" aria-hidden="true">
-          <span class="k">Your path</span>
-          <div class="row"><span class="v">Stage 02</span><span class="mono" style="color:var(--crimson-hi);font-size:14px">38%</span></div>
+        <div class="hud b" id="hudSess">
+          <span class="k">Markets now · MYT</span>
+          <div class="row"><span class="v" id="hudSessV">—</span><span class="mono" id="hudSessT" style="color:var(--crimson-hi);font-size:13px"></span></div>
         </div>
       </div>
     </div>
@@ -634,19 +640,19 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
               <circle cx="300" cy="40" r="5" fill="#fff"/>
             </g>
           </svg>
-          <div class="core" aria-live="polite"><span class="core-n chrome" id="coreN">312</span><span class="core-l" id="coreL">video lessons</span></div>
-          <button class="node" data-k="videos" style="left:50%;top:7%" aria-pressed="true"><span class="nk">Videos</span><span class="nv">312</span><span class="timer"></span></button>
-          <button class="node" data-k="ebooks" style="left:87.2%;top:28.5%" aria-pressed="false"><span class="nk">Ebooks</span><span class="nv">41</span><span class="timer"></span></button>
-          <button class="node" data-k="indicators" style="left:87.2%;top:71.5%" aria-pressed="false"><span class="nk">Indicators</span><span class="nv">17</span><span class="timer"></span></button>
+          <div class="core" aria-live="polite"><span class="core-n chrome" id="coreN">Soon</span><span class="core-l" id="coreL">video lessons</span></div>
+          <button class="node" data-k="videos" style="left:50%;top:7%" aria-pressed="true"><span class="nk">Videos</span><span class="nv" id="nv-videos">Soon</span><span class="timer"></span></button>
+          <button class="node" data-k="ebooks" style="left:87.2%;top:28.5%" aria-pressed="false"><span class="nk">Ebooks</span><span class="nv" id="nv-ebooks">Soon</span><span class="timer"></span></button>
+          <button class="node" data-k="indicators" style="left:87.2%;top:71.5%" aria-pressed="false"><span class="nk">Indicators</span><span class="nv">3</span><span class="timer"></span></button>
           <button class="node" data-k="desk" style="left:50%;top:93%" aria-pressed="false"><span class="nk">Desk</span><span class="nv">4 tools</span><span class="timer"></span></button>
           <button class="node" data-k="path" style="left:12.8%;top:71.5%" aria-pressed="false"><span class="nk">Path</span><span class="nv">4 stages</span><span class="timer"></span></button>
-          <button class="node" data-k="live" style="left:12.8%;top:28.5%" aria-pressed="false"><span class="nk">Live</span><span class="nv">8 / mo</span><span class="timer"></span></button>
+          <button class="node" data-k="live" style="left:12.8%;top:28.5%" aria-pressed="false"><span class="nk">Live</span><span class="nv" id="nv-live">Soon</span><span class="timer"></span></button>
         </div>
         <article class="hub-panel frame" id="hubPanel">
           <div class="hp-top"><span class="hp-tag" id="hpTag">Videos</span><span class="hp-count" id="hpCount">Room 1 of 6</span></div>
           <h3 id="hpTitle">Learn it on the chart, not in theory.</h3>
           <p id="hpText">Short lessons recorded on live charts, plus full session replays. Every video ships with the chart file and a one-page summary.</p>
-          <ul class="facts" id="hpFacts"><li>312 lessons and replays</li><li>Chart file with every video</li><li>New lessons every week</li></ul>
+          <ul class="facts" id="hpFacts"><li>Recorded on live charts</li><li>Chart file with every video</li><li>New lessons every week</li></ul>
           <div class="hp-visual"><canvas id="hpCanvas" aria-hidden="true"></canvas><img id="hpImg" src="ebook-01.webp" alt="" width="900" height="1260" hidden></div>
           <a class="link-arrow" id="hpLink" href="#library">Open the video channel <svg><use href="#arr"/></svg></a>
         </article>
@@ -660,12 +666,12 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
       <div class="sec-head">
         <span class="eyebrow">The desk</span>
         <h2 id="deskTitle">Everything you trade with. <span class="red">One window.</span></h2>
-        <p>Watchlist, chart, position sizing, the calendar and your alerts, laid out the way you use them. Pick a symbol, hover the chart, drag the sliders.</p>
+        <p>Live prices and charts, position sizing, the economic calendar and the session timeline, laid out the way you use them. Pick a symbol, change the timeframe, drag the sliders.</p>
       </div>
       <div class="term frame">
         <div class="term-bar">
           <span class="tb-brand">1PC Terminal</span>
-          <span class="tb-sym" id="tbSym">EUR/USD</span>
+          <label class="sr" for="symSel">Chart symbol</label><select id="symSel" class="sym-sel"></select>
           <div class="seg" role="tablist" aria-label="Timeframe">
             <button role="tab" aria-selected="false" data-tf="M15">M15</button>
             <button role="tab" aria-selected="true" data-tf="H1">H1</button>
@@ -676,12 +682,11 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
         </div>
         <div class="term-body">
           <aside class="watch" aria-label="Watchlist">
-            <div class="pane-h">Watchlist <small>Sample prices</small></div>
-            <ul id="watchList"></ul>
+            <div class="pane-h">Watchlist <small><span class="dot-live"></span>Live · TradingView</small></div>
+            <div class="tv-box" id="tvQuotes"></div>
           </aside>
           <div class="term-chart">
-            <div class="ohlc" id="termOhlc"><span>O <b>-</b></span></div>
-            <canvas class="chart" id="termChart" role="img" aria-label="Candlestick chart for the selected symbol with a 20-period moving average and volume. Hover to read prices."></canvas>
+            <div class="tv-box tv-chart" id="tvChart" aria-label="Live chart for the selected symbol, in Malaysia time"></div>
           </div>
           <aside class="risk" aria-label="Position size calculator">
             <div class="pane-h">Position size <small>$10 / pip / lot</small></div>
@@ -710,7 +715,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
         </div>
         <div class="term-foot">
           <div class="pane"><div class="pane-h">Economic calendar <small id="calTag">Sample schedule</small></div><ul id="calList"></ul></div>
-          <div class="pane"><div class="pane-h">Indicator alerts <small>Sample alerts</small></div><ul id="sigList"></ul></div>
+          <div class="pane"><div class="pane-h">Session timeline <small>Malaysia time</small></div><ul id="sigList"></ul></div>
         </div>
       </div>
     </div>
@@ -744,14 +749,14 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
             <path class="draw" d="M0 90 C60 88 90 70 140 72 S220 92 270 60 S350 40 400 46" stroke="#ff2d55" stroke-width="2.5"/>
             <path d="M0 110H400" stroke="#25262c"/>
           </svg>
-          <div class="meta"><span class="chip">48 lessons</span><span class="chip">6 ebooks</span></div>
+          <div class="meta" data-stage-chips="1"><span class="chip">Lessons coming soon</span></div>
         </li>
         <li class="stage frame" data-n="02" data-name="Price action">
           <div class="stage-top"><span class="num chrome">02</span><span class="lvl">Intermediate</span></div>
           <h3>Price action</h3>
           <p>Market structure, supply and demand, and reading candles in the context of the higher timeframe.</p>
           <svg class="art" viewBox="0 0 400 120" aria-hidden="true"><g class="candles"></g></svg>
-          <div class="meta"><span class="chip">96 lessons</span><span class="chip">12 ebooks</span></div>
+          <div class="meta" data-stage-chips="2"><span class="chip">Lessons coming soon</span></div>
         </li>
         <li class="stage frame" data-n="03" data-name="Strategy &amp; risk">
           <div class="stage-top"><span class="num chrome">03</span><span class="lvl">Intermediate</span></div>
@@ -764,7 +769,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
             <text x="346" y="24" fill="#2ed3a0" font-family="JetBrains Mono, monospace" font-size="11">TP 2R</text>
             <text x="346" y="76" fill="#ff5d73" font-family="JetBrains Mono, monospace" font-size="11">SL 1R</text>
           </svg>
-          <div class="meta"><span class="chip">104 lessons</span><span class="chip">14 ebooks</span></div>
+          <div class="meta" data-stage-chips="3"><span class="chip">Lessons coming soon</span></div>
         </li>
         <li class="stage frame" data-n="04" data-name="Funded &amp; beyond">
           <div class="stage-top"><span class="num chrome">04</span><span class="lvl">Advanced</span></div>
@@ -776,7 +781,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
             <path d="M0 30 H400" stroke="#ff2d55" stroke-dasharray="6 6" opacity=".7"/>
             <text x="4" y="24" fill="#ff2d55" font-family="Chakra Petch, sans-serif" font-size="11" letter-spacing="1.5">PROFIT TARGET +10%</text>
           </svg>
-          <div class="meta"><span class="chip">64 lessons</span><span class="chip">9 ebooks</span></div>
+          <div class="meta" data-stage-chips="4"><span class="chip">Lessons coming soon</span></div>
         </li>
       </ol>
     </div>
@@ -794,29 +799,19 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
         <div class="screen frame" id="screen">
           <div class="screen-media">
             <canvas id="screenCanvas" aria-hidden="true"></canvas>
-            <span class="screen-tag" id="screenTag">Price action</span>
-            <button class="big-play" id="bigPlay" aria-label="Play preview"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></button>
+            <span class="screen-tag" id="screenTag">Coming soon</span>
+            <a class="big-play" id="bigPlay" href="login.html?next=account.html%23library" aria-label="Watch in your member desk"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></a><img id="screenImg" alt="" hidden style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
           </div>
-          <div class="screen-bar">
-            <button class="pp" id="screenPP" aria-label="Play"></button>
-            <div class="scrub" aria-hidden="true"><span id="screenScrub"></span></div>
-            <span class="s-time" id="screenTime">0:00 / 0:00</span>
-          </div>
+
           <div class="screen-info">
-            <span class="sm" id="screenMeta">Price action · Beginner</span>
-            <h3 id="screenTitle">Market structure in 20 minutes</h3>
-            <p class="note">Preview player. This mock site has no video files, so the chart replays the lesson's example instead.</p>
+            <span class="sm" id="screenMeta">Video lessons</span>
+            <h3 id="screenTitle">The first lessons are being recorded</h3>
+            <p class="note" id="screenNote">Join free and they will appear on your member desk as soon as they are published.</p>
+            <div class="row" style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-red" id="screenCta" href="login.html?mode=signup">Join free</a></div>
           </div>
         </div>
         <div class="episodes">
-          <div class="filters" role="group" aria-label="Filter videos by topic">
-            <button class="filter" aria-pressed="true" data-filter="all">All</button>
-            <button class="filter" aria-pressed="false" data-filter="Price action">Price action</button>
-            <button class="filter" aria-pressed="false" data-filter="Risk">Risk</button>
-            <button class="filter" aria-pressed="false" data-filter="Psychology">Psychology</button>
-            <button class="filter" aria-pressed="false" data-filter="Indicators">Indicators</button>
-            <button class="filter" aria-pressed="false" data-filter="Live sessions">Live</button>
-          </div>
+          <div class="filters" role="group" aria-label="Filter videos by topic" id="filters" hidden></div>
           <ol class="ep-list" id="epList" aria-label="Episodes"></ol>
         </div>
       </div>
@@ -832,19 +827,16 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
         <p>Concise, illustrated guides with worked chart examples. Download as PDF or EPUB and keep them forever.</p>
       </div>
       <div class="flow" id="flow" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Ebook shelf. Use the arrow keys to browse.">
-        <button class="fbook" data-i="0" aria-label="Headline and Storyline"><div class="cover photo"><img src="ebook-01.webp" alt="" width="900" height="1260" loading="lazy" decoding="async"></div></button>
-        <button class="fbook" data-i="1" aria-label="Candles in Context"><div class="cover c2"><span class="brand">1% CLUB</span><span class="big">02</span><div><h4>Candles in Context</h4><div class="vol">VOL. 02 · PRICE ACTION</div></div></div></button>
-        <button class="fbook" data-i="2" aria-label="Risk Before Reward"><div class="cover c3"><span class="brand">1% CLUB</span><span class="big">03</span><div><h4>Risk Before Reward</h4><div class="vol">VOL. 03 · STRATEGY &amp; RISK</div></div></div></button>
-        <button class="fbook" data-i="3" aria-label="The Funded Trader Playbook"><div class="cover c4"><span class="brand">1% CLUB</span><span class="big">04</span><div><h4>The Funded Trader Playbook</h4><div class="vol">VOL. 04 · FUNDED</div></div></div></button>
+
       </div>
       <div class="flow-ctrl">
         <button class="arrow" id="flowPrev" aria-label="Previous ebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
         <div class="flow-info" aria-live="polite">
-          <span class="fv" id="fVol">Vol. 01 · Foundations</span>
-          <h3 id="fTitle">Headline and Storyline</h3>
-          <p id="fDesc">Pips, lots, margin and leverage, explained with a calculator you can follow by hand.</p>
-          <span class="fm" id="fMeta">64 pages · PDF + EPUB · Free with Starter</span>
-          <div class="dots" id="fDots"><i class="on"></i><i></i><i></i><i></i></div>
+          <span class="fv" id="fVol">Ebooks</span>
+          <h3 id="fTitle">The shelf is being stocked</h3>
+          <p id="fDesc">Ebooks appear here as soon as they are published.</p>
+          <span class="fm" id="fMeta"></span>
+          <div class="dots" id="fDots"></div>
         </div>
         <button class="arrow" id="flowNext" aria-label="Next ebook"><svg><use href="#arr"/></svg></button>
       </div>
@@ -857,7 +849,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
       <div class="sec-head">
         <span class="eyebrow">Indicators</span>
         <h2 id="indTitle">Built on the desk. <span class="red">Used in every lesson.</span></h2>
-        <p>The same indicators you see in the videos, for TradingView, MT4 and MT5. Switch one on and watch it draw.</p>
+        <p>The same indicators you see in the videos, for TradingView, MT4 and MT5. Switch one on and watch it draw on the last 120 hours of real EUR/USD prices.</p>
       </div>
       <div class="lab frame">
         <div class="lab-top"><div class="ohlc" id="labOhlc"><span><b>EUR/USD</b></span><span>H1</span></div></div>
@@ -884,17 +876,17 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
           <span class="meta"><span class="chip">Pivot length 4</span><span class="chip">Alerts</span><span class="chip">TV · MT4 · MT5</span></span>
         </button>
       </div>
-      <p class="more-ind">15 more in the library, including ATR stops, a position-size calculator and a trade journal overlay. <a href="#pricing">See membership</a></p>
+      <p class="more-ind">More indicators are on the way. <a href="#pricing">See membership</a></p>
     </div>
   </section>
 
   <!-- ============ numbers ============ -->
-  <section class="numbers" aria-label="1 Percent Club in numbers (illustrative)">
+  <section class="numbers" id="numbers" aria-label="1 Percent Club in numbers" hidden>
     <div class="wrap">
-      <div class="stat"><span class="n chrome" data-to="12480">12,480</span><span class="l">Students learning</span></div>
-      <div class="stat"><span class="n chrome" data-to="64">64</span><span class="l">Countries</span></div>
-      <div class="stat"><span class="n chrome" data-to="1920">1,920</span><span class="l">Hours watched each week</span></div>
-      <div class="stat"><span class="n chrome" data-to="8">8</span><span class="l">Live sessions a month</span></div>
+      <div class="stat" data-k="members" hidden><span class="n chrome" data-to="0">0</span><span class="l">Members</span></div>
+      <div class="stat" data-k="videos" hidden><span class="n chrome" data-to="0">0</span><span class="l">Video lessons</span></div>
+      <div class="stat" data-k="ebooks" hidden><span class="n chrome" data-to="0">0</span><span class="l">Ebooks</span></div>
+      <div class="stat" data-k="live_30d" hidden><span class="n chrome" data-to="0">0</span><span class="l">Live sessions in the next 30 days</span></div>
     </div>
   </section>
 
@@ -920,7 +912,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
           </div>
           <div class="tier-body">
             <p>For your first month on the charts.</p>
-            <ul><li>24 Foundations lessons</li><li>Headline and Storyline ebook</li><li>Trend Ribbon Lite indicator</li><li>Position size calculator</li></ul>
+            <ul><li>The Foundations track</li><li>Headline and Storyline ebook</li><li>Trend Ribbon Lite indicator</li><li>Position size calculator</li></ul>
             <a class="btn btn-dark" href="#join">Start free</a>
           </div>
         </article>
@@ -934,7 +926,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
           <div class="tier-body">
             <span class="tag">Most popular</span>
             <p>The full library, updated every week.</p>
-            <ul><li>All 312 video lessons and replays</li><li>All 41 ebooks, PDF and EPUB</li><li>17 indicators for TV, MT4 and MT5</li><li>Weekly live session at the London open</li></ul>
+            <ul><li>Every video lesson and replay</li><li>Every ebook, PDF and EPUB</li><li>Pro indicators for TV, MT4 and MT5</li><li>Live sessions at the London open</li></ul>
             <a class="btn btn-red magnetic" href="#join">Go Pro</a>
           </div>
         </article>
@@ -947,7 +939,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
           </div>
           <div class="tier-body">
             <p>Pay once. Keep every future update.</p>
-            <ul><li>Everything in Pro, forever</li><li>All 18 indicators, incl. Liquidity Sweep</li><li>Private desk community</li><li>Monthly trade review call</li></ul>
+            <ul><li>Everything in Pro, forever</li><li>Every indicator, incl. Liquidity Sweep</li><li>Private desk community</li><li>Monthly trade review call</li></ul>
             <a class="btn btn-chrome" href="#join">Get Lifetime</a>
           </div>
         </article>
@@ -993,11 +985,12 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
     <div class="wordmark-wrap" aria-hidden="true"><img class="wordmark" id="wordmark" src="1pc-logo.webp" alt="" width="821" height="322"></div>
     <div class="risk-note">
       <p><b>Risk warning.</b> Trading foreign exchange, CFDs and crypto on margin carries a high level of risk and may not be suitable for all investors. You could lose more than your initial deposit; read the <a href="risk.html">Risk Disclosure</a>. 1 Percent Club provides education only and does not give investment advice or manage funds. Past performance and backtests are not indicative of future results.</p>
-      <p>Session times are shown in Malaysia time (MYT). The gold price is a live spot price from gold-api.com, for information only. Other prices, counts, charts and alerts shown on this site are illustrative. © 2026 1 Percent Club.</p>
+      <p>Session times are shown in Malaysia time (MYT). Live prices and charts come from gold-api.com and TradingView, and the indicator demo uses real EUR/USD hourly prices; all are for information only. Counts come from the members database. © 2026 1 Percent Club.</p>
     </div>
   </div>
 </footer>
 
+<script src="config.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrambleTextPlugin.min.js"></script>
@@ -1012,6 +1005,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const pad2 = n => String(n).padStart(2, '0');
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const NUMFONT = '500 11px "JetBrains Mono", ui-monospace, monospace';
 
   // ---------- data helpers ----------
@@ -1175,12 +1169,12 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
 
   // ---------- hub dial ----------
   const HUB = {
-    videos: { n: '312', l: 'video lessons', tag: 'Videos', title: 'Learn it on the chart, not in theory.', text: 'Short lessons recorded on live charts, plus full session replays. Every video ships with the chart file and a one-page summary.', facts: ['312 lessons and replays', 'Chart file with every video', 'New lessons every week'], href: '#library', cta: 'Open the video channel' },
-    ebooks: { n: '41', l: 'ebooks', tag: 'Ebooks', title: 'A library you keep forever.', text: 'Illustrated guides with worked chart examples, from Headline and Storyline to The Funded Trader Playbook.', facts: ['41 ebooks, PDF and EPUB', 'Worked chart examples in each', 'Headline and Storyline free with Starter'], href: '#ebooks', cta: 'Browse the shelf' },
-    indicators: { n: '17', l: 'indicators', tag: 'Indicators', title: 'Tools from the lessons, on your charts.', text: 'The same indicators used in every video, built for TradingView, MetaTrader 4 and MetaTrader 5, with alerts you set yourself.', facts: ['Trend Ribbon, Session Boxes, Liquidity Sweep', 'TradingView, MT4 and MT5', 'Alerts you configure yourself'], href: '#indicators', cta: 'Open the lab' },
-    desk: { n: '4', l: 'tools in one window', tag: 'Desk', title: 'Plan the trade before you take it.', text: 'A live chart, a position size calculator, the economic calendar and indicator alerts in one terminal.', facts: ['Risk-based position sizing', 'Calendar with release countdowns', 'Alerts from your watchlist'], href: '#desk', cta: 'Open the terminal' },
+    videos: { n: 'Soon', l: 'video lessons on the way', tag: 'Videos', title: 'Learn it on the chart, not in theory.', text: 'Short lessons recorded on live charts, plus full session replays. Every video ships with the chart file and a one-page summary.', facts: ['Recorded on live charts', 'Chart file with every video', 'New lessons added regularly'], href: '#library', cta: 'Open the video channel' },
+    ebooks: { n: 'Soon', l: 'ebooks', tag: 'Ebooks', title: 'A library you keep forever.', text: 'Illustrated guides with worked chart examples, from Headline and Storyline to The Funded Trader Playbook.', facts: ['PDF and EPUB, yours to keep', 'Worked chart examples in each', 'Headline and Storyline free with Starter'], href: '#ebooks', cta: 'Browse the shelf' },
+    indicators: { n: '3', l: 'indicators', tag: 'Indicators', title: 'Tools from the lessons, on your charts.', text: 'The same indicators used in every video, built for TradingView, MetaTrader 4 and MetaTrader 5, with alerts you set yourself.', facts: ['Trend Ribbon, Session Boxes, Liquidity Sweep', 'TradingView, MT4 and MT5', 'Alerts you configure yourself'], href: '#indicators', cta: 'Open the lab' },
+    desk: { n: '4', l: 'tools in one window', tag: 'Desk', title: 'Plan the trade before you take it.', text: 'A live chart and watchlist, a position size calculator, the economic calendar and the session timeline in one terminal.', facts: ['Live prices and charts', 'Risk-based position sizing', 'Calendar with release countdowns'], href: '#desk', cta: 'Open the terminal' },
     path: { n: '4', l: 'stages', tag: 'Path', title: 'Always know what to learn next.', text: 'Foundations, price action, strategy and risk, then funded. Every lesson, ebook and indicator is tagged to one stage.', facts: ['Foundations to funded', 'Every lesson mapped to a stage', 'Progress saved in your desk'], href: '#path', cta: 'See the path' },
-    live: { n: '8', l: 'live sessions a month', tag: 'Live', title: 'Trade the London open with the desk.', text: 'Weekly sessions at the London open, plus NFP and FOMC specials. Replays land in the channel the same day.', facts: ['Every week at 08:00 London time', 'NFP and FOMC specials', 'Replays the same day'], href: '#pricing', cta: 'Included with Pro' }
+    live: { n: 'Soon', l: 'live sessions coming up', tag: 'Live', title: 'Trade the London open with the desk.', text: 'Live sessions at the London open (4pm Malaysia time), plus specials around big news like NFP and FOMC.', facts: ['Sessions at the London open', 'Reminders on your member desk', 'Join links on your desk'], href: '#pricing', cta: 'Included with Pro' }
   };
   const HKEYS = Object.keys(HUB), ANG = { videos: 0, ebooks: 60, indicators: 120, desk: 180, path: 240, live: 300 };
   const nodes = $$('.node'), arm = $('#dialArm'), hcv = $('#hpCanvas'), hpImg = $('#hpImg');
@@ -1265,46 +1259,30 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
   drawHub('videos'); window.addEventListener('resize', () => drawHub(hubKey));
   setInterval(() => { if (hubKey === 'live') drawHub('live'); }, reduce ? 1000 : 50);
 
-  // ---------- terminal: watchlist ----------
-  const pairs = [['EUR/USD', 1.08420, 5], ['GBP/USD', 1.27315, 5], ['USD/JPY', 151.284, 3], ['XAU/USD', 2384.60, 2], ['AUD/USD', 0.66142, 5], ['US30', 39112.4, 1], ['NAS100', 18242.7, 1], ['BTC/USD', 67350.0, 1], ['USD/CAD', 1.36218, 5], ['GBP/JPY', 192.611, 3]]
-    .map(([s, p, d]) => ({ s, p, d, open: p, hist: Array.from({ length: 16 }, () => p) }));
-  const watch = $('#watchList');
-  watch.innerHTML = pairs.map((q, i) => `<li><button class="w-row" data-i="${i}" aria-pressed="${i === 0}"><span class="w-s">${q.s}</span><span class="w-p" data-p="${i}">${q.p.toFixed(q.d)}</span><svg viewBox="0 0 54 16" preserveAspectRatio="none" aria-hidden="true"><path data-s="${i}" fill="none" stroke-width="1.3"/></svg><span class="w-c" data-c="${i}">+0.00%</span></button></li>`).join('');
-  const tr = rng(3);
-  function updateWatch(flash) {
-    pairs.forEach((q, i) => {
-      const prev = q.p; q.p *= 1 + (tr() - 0.5) * 0.0009; q.hist.push(q.p); q.hist.shift();
-      const pct = (q.p - q.open) / q.open * 100, mn = Math.min(...q.hist), mx = Math.max(...q.hist);
-      const d = q.hist.map((v, k) => `${k ? 'L' : 'M'}${(k / 15 * 54).toFixed(1)} ${(15 - (v - mn) / (mx - mn || 1) * 14).toFixed(1)}`).join(' ');
-      const path = $(`[data-s="${i}"]`, watch); path.setAttribute('d', d); path.setAttribute('stroke', pct >= 0 ? C.bull : C.bear);
-      const px = $(`[data-p="${i}"]`, watch); px.textContent = q.p.toFixed(q.d);
-      if (flash) { px.classList.remove('flash-up', 'flash-down'); void px.offsetWidth; px.classList.add(q.p >= prev ? 'flash-up' : 'flash-down'); }
-      const c = $(`[data-c="${i}"]`, watch); c.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%'; c.className = 'w-c ' + (pct >= 0 ? 'up' : 'down');
-    });
+  // ---------- terminal: live watchlist and chart (TradingView widgets; the chart runs in Malaysia time) ----------
+  const SYMS = [['EUR/USD', 'OANDA:EURUSD'], ['GBP/USD', 'OANDA:GBPUSD'], ['USD/JPY', 'OANDA:USDJPY'], ['XAU/USD', 'OANDA:XAUUSD'], ['AUD/USD', 'OANDA:AUDUSD'],
+    ['US30', 'OANDA:US30USD'], ['NAS100', 'OANDA:NAS100USD'], ['BTC/USD', 'BITSTAMP:BTCUSD'], ['USD/CAD', 'OANDA:USDCAD'], ['GBP/JPY', 'OANDA:GBPJPY']];
+  const TFI = { M15: '15', H1: '60', H4: '240', D1: 'D' };
+  let sym = 'OANDA:XAUUSD', tf = 'H1';
+  function tvEmbed(box, widget, config) {
+    box.innerHTML = '<div class="tradingview-widget-container" style="height:100%;width:100%"><div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div></div>';
+    const sc = document.createElement('script'); sc.src = `https://s3.tradingview.com/external-embedding/embed-widget-${widget}.js`; sc.async = true; sc.text = JSON.stringify(config);
+    box.firstChild.appendChild(sc);
   }
-  for (let k = 0; k < 15; k++) updateWatch(false);
-  if (!reduce) setInterval(() => updateWatch(true), 1500);
-
-  // ---------- terminal: chart ----------
-  const TF = { M15: .00032, H1: .0008, H4: .0017, D1: .0038 }, TFN = { M15: 1, H1: 2, H4: 3, D1: 4 };
-  let sym = 0, tf = 'H1', termEma = [];
-  const termOhlc = $('#termOhlc');
-  const term = ChartView($('#termChart'), {
-    bars: [], volume: true,
-    overlay(ctx, a, layer) { if (layer !== 'over') return;
-      const g = ctx.createLinearGradient(0, a.top, 0, a.bot); g.addColorStop(0, 'rgba(220,20,60,.18)'); g.addColorStop(1, 'rgba(220,20,60,0)');
-      ctx.fillStyle = g; ctx.beginPath(); for (let i = 0; i < a.n; i++) i ? ctx.lineTo(a.xi(i), a.y(termEma[i])) : ctx.moveTo(a.xi(i), a.y(termEma[i])); ctx.lineTo(a.xi(a.n - 1), a.bot); ctx.lineTo(a.xi(0), a.bot); ctx.closePath(); ctx.fill();
-      line(ctx, termEma, a.n, a.xi, a.y, C.red, 2, 12); },
-    onReadout: i => { termOhlc.innerHTML = fmtOhlc(term.bars[i], term.dec); }
-  });
-  function loadTerm(anim) {
-    const q = pairs[sym]; term.bars = series(90, 300 + sym * 17 + TFN[tf], q.open, q.open * TF[tf]); term.dec = q.d; termEma = ema(term.bars.map(b => b.c), 20);
-    $('#tbSym').textContent = q.s;
-    if (anim && hasGsap && !reduce) gsap.fromTo(term, { p: .05 }, { p: 1, duration: 1.1, ease: 'power3.out', onUpdate: term.draw }); else { term.p = 1; term.draw(); }
+  const symSel = $('#symSel'); symSel.innerHTML = SYMS.map(([n, id]) => `<option value="${id}"${id === sym ? ' selected' : ''}>${n}</option>`).join('');
+  function loadChart() {
+    tvEmbed($('#tvChart'), 'advanced-chart', { autosize: true, symbol: sym, interval: TFI[tf], timezone: 'Asia/Kuala_Lumpur', theme: 'dark', style: '1', locale: 'en',
+      backgroundColor: 'rgba(17,17,20,1)', gridColor: 'rgba(37,38,44,0.6)', hide_side_toolbar: true, allow_symbol_change: false, save_image: false, calendar: false,
+      hide_volume: true, studies: ['STD;EMA'], support_host: 'https://www.tradingview.com' });
   }
-  loadTerm(false);
-  watch.addEventListener('click', e => { const b = e.target.closest('.w-row'); if (!b) return; sym = +b.dataset.i; $$('.w-row', watch).forEach(x => x.setAttribute('aria-pressed', String(x === b))); loadTerm(true); });
-  $$('[data-tf]').forEach(b => b.addEventListener('click', () => { $$('[data-tf]').forEach(x => x.setAttribute('aria-selected', String(x === b))); tf = b.dataset.tf; loadTerm(true); }));
+  let termLoaded = false;
+  function loadTerminal() { if (termLoaded) return; termLoaded = true; loadChart();
+    tvEmbed($('#tvQuotes'), 'market-quotes', { width: '100%', height: '100%', symbolsGroups: [{ name: 'Watchlist', symbols: SYMS.map(([n, id]) => ({ name: id, displayName: n })) }],
+      showSymbolLogo: false, isTransparent: false, colorTheme: 'dark', locale: 'en' }); }
+  // load the widgets only when the terminal comes near the screen
+  new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { loadTerminal(); io.disconnect(); } }, { rootMargin: '600px' }).observe($('#tvChart'));
+  symSel.addEventListener('change', () => { sym = symSel.value; if (termLoaded) loadChart(); });
+  $$('[data-tf]').forEach(b => b.addEventListener('click', () => { $$('[data-tf]').forEach(x => x.setAttribute('aria-selected', String(x === b))); tf = b.dataset.tf; if (termLoaded) loadChart(); }));
 
   // ---------- terminal: position size ----------
   const bal = $('#calcBal'), risk = $('#calcRisk'), stop = $('#calcStop');
@@ -1358,19 +1336,28 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
     calTag.innerHTML = '<span class="dot-live"></span>Live · <a href="https://www.forexfactory.com/calendar" target="_blank" rel="noopener">ForexFactory</a>';
   }).catch(() => {});
 
-  // ---------- terminal: alerts feed ----------
-  const sigList = $('#sigList'); const sr = rng(41);
-  const sigInd = ['1% Trend Ribbon', 'Liquidity Sweep', 'Session Boxes', 'ATR Stop'], sigPairs = ['EUR/USD', 'GBP/USD', 'XAU/USD', 'USD/JPY', 'NAS100', 'GBP/JPY'], sigTf = ['M15', 'H1', 'H4'];
-  const sigWhat = { '1% Trend Ribbon': 'EMA cross', 'Liquidity Sweep': 'swing swept', 'Session Boxes': 'London breakout', 'ATR Stop': 'trail flipped' };
-  function sigRow(time) { const ind = sigInd[Math.floor(sr() * sigInd.length)], pair = sigPairs[Math.floor(sr() * sigPairs.length)], tfx = sigTf[Math.floor(sr() * 3)], long = sr() > .5;
-    const li = document.createElement('li'); li.className = 'sig-row';
-    li.innerHTML = `<span class="tm">${time.toISOString().slice(11, 19)}</span><span class="what"><b>${ind}</b><span>${pair} · ${tfx} · ${sigWhat[ind]}</span></span><span class="pill ${long ? 'long' : 'short'}">${long ? 'Long' : 'Short'}</span>`; return li; }
-  for (let i = 0; i < 5; i++) sigList.appendChild(sigRow(new Date(Date.now() - (i + 1) * 47000)));
-  function pushSig() { const li = sigRow(new Date()); sigList.prepend(li); const last = sigList.children[5];
-    if (hasGsap) { gsap.from(li, { height: 0, paddingTop: 0, paddingBottom: 0, opacity: 0, x: -20, duration: .6, ease: 'power3.out', clearProps: 'height,paddingTop,paddingBottom,x' });
-      gsap.fromTo(li, { backgroundColor: 'rgba(220,20,60,.2)' }, { backgroundColor: 'rgba(220,20,60,0)', duration: 1.8, clearProps: 'backgroundColor' }); }
-    if (last) { if (hasGsap) gsap.to(last, { opacity: 0, duration: .3, onComplete: () => last.remove() }); else last.remove(); } }
-  if (!reduce) setInterval(pushSig, 3200);
+  // ---------- terminal: session timeline (next opens and closes, Malaysia time) ----------
+  const sigList = $('#sigList');
+  const CITIES = [['Sydney', 'Australia/Sydney'], ['Tokyo', 'Asia/Tokyo'], ['London', 'Europe/London'], ['New York', 'America/New_York']];
+  const mytHM = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kuala_Lumpur', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  function renderTimeline() {
+    const now = Date.now(), ev = [];
+    CITIES.forEach(([name, tz]) => { let open = isOpen(tz, new Date(now)), t = now;
+      for (let k = 0; k < 2; k++) { const f = nextFlip(tz, open, t); if (!f) break; ev.push({ name, at: f, opens: !open }); open = !open; t = f; } });
+    ev.sort((a, b) => a.at - b.at);
+    sigList.innerHTML = ev.slice(0, 6).map(e => `<li class="tl-row"><span class="tm">${mytHM.format(new Date(e.at)).replace(',', '')}</span><span class="what"><b>${e.name} ${e.opens ? 'opens' : 'closes'}</b></span><span class="pill ${e.opens ? 'long' : 'closed'}">in ${dur(e.at - now)}</span></li>`).join('');
+  }
+  renderTimeline(); setInterval(renderTimeline, 30000);
+
+  // ---------- hero cards: market session right now ----------
+  function renderNowCard() {
+    const now = Date.now(), open = CITIES.filter(([, tz]) => isOpen(tz, new Date(now)));
+    if (open.length) { const [name, tz] = open[open.length - 1], f = nextFlip(tz, true, now);
+      $('#hudSessV').textContent = open.map(o => o[0]).join(' + ') + ' open'; $('#hudSessT').textContent = f ? `${name} closes in ${dur(f - now)}` : ''; }
+    else { const nx = CITIES.map(([name, tz]) => ({ name, f: nextFlip(tz, false, now) })).filter(x => x.f).sort((a, b) => a.f - b.f)[0];
+      $('#hudSessV').textContent = 'Markets closed'; $('#hudSessT').textContent = nx ? `${nx.name} opens in ${dur(nx.f - now)}` : ''; }
+  }
+  renderNowCard(); setInterval(renderNowCard, 30000);
 
   // ---------- path: stage meter and the ascent curve ----------
   (function () { const g = $('.stage .candles'); const b = series(26, 21, 1, 0.012); const [hi, lo] = range(b);
@@ -1387,100 +1374,117 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
   const stIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setStage(stEls.indexOf(e.target)); }), { rootMargin: '-45% 0px -45% 0px' });
   stEls.forEach(s => stIO.observe(s));
 
-  // ---------- video channel ----------
-  const videos = [
-    { t: 'Market structure in 20 minutes', c: 'Price action', l: 'b', d: '18:42', s: 11 }, { t: 'Supply and demand zones that hold', c: 'Price action', l: 'i', d: '32:10', s: 12 },
-    { t: 'Position sizing and the 1% rule', c: 'Risk', l: 'b', d: '14:05', s: 13 }, { t: 'Stop placement without getting hunted', c: 'Risk', l: 'i', d: '26:37', s: 14 },
-    { t: 'Trading the London open, live', c: 'Live sessions', l: 'a', d: '54:20', s: 15 }, { t: 'Revenge trading and how to stop it', c: 'Psychology', l: 'all', d: '21:48', s: 16 },
-    { t: 'Setting up the 1% Trend Ribbon', c: 'Indicators', l: 'b', d: '12:30', s: 17 }, { t: 'NFP week: a full session replay', c: 'Live sessions', l: 'a', d: '1:08:15', s: 18 }
-  ];
-  const lvlName = { b: 'Beginner', i: 'Intermediate', a: 'Advanced', all: 'All levels' };
-  const catColor = { 'Price action': C.red, 'Risk': C.bear, 'Psychology': C.pink, 'Indicators': C.bull, 'Live sessions': C.violet2 };
-  const epList = $('#epList');
-  epList.innerHTML = videos.map((v, i) => `<li data-cat="${v.c}"><button class="ep" data-i="${i}" aria-current="${i === 0}" aria-label="Play ${v.t}, ${v.d}"><span class="ep-thumb"><canvas data-seed="${v.s}" data-col="${catColor[v.c]}"></canvas><span class="dur">${v.d}</span></span><span><span class="ep-t">${v.t}</span><span class="ep-m">${v.c} · ${lvlName[v.l]}</span></span></button></li>`).join('');
+  // ---------- video channel: published lessons from the members database ----------
+  const epList = $('#epList'), scv = $('#screenCanvas'), screenImg = $('#screenImg');
+  const mmss = x => { x = Math.max(0, Math.round(x || 0)); const h = Math.floor(x / 3600), m = Math.floor(x % 3600 / 60); return h ? `${h}:${pad2(m)}:${pad2(x % 60)}` : `${m}:${pad2(x % 60)}`; };
+  const hashStr = t => [...String(t)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) | 0, 7);
+  const PLAN = { starter: 'Free', pro: 'Pro', lifetime: 'Lifetime' };
   const thumbData = new Map();
   function drawThumb(cv) {
     const { ctx, w, h } = fitCanvas(cv); let d = thumbData.get(cv);
     if (!d) { const b = series(34, +cv.dataset.seed, 1, 0.01); d = { b, m: ema(b.map(k => k.c), 6) }; thumbData.set(cv, d); }
     const g = ctx.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#1b1b20'); g.addColorStop(1, '#0f0f12'); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
     const [hi, lo] = range(d.b); const y = v => h * .86 - (v - lo) / (hi - lo) * h * .68, step = w / 36, xi = i => step + i * step;
-    candles(ctx, d.b, xi, y, Math.max(1.5, step * .5), .85); line(ctx, d.m, d.b.length, xi, y, cv.dataset.col, 1.6, 8);
+    candles(ctx, d.b, xi, y, Math.max(1.5, step * .5), .85); line(ctx, d.m, d.b.length, xi, y, cv.dataset.col || C.red, 1.6, 8);
   }
-  const redrawThumbs = () => $$('canvas', epList).forEach(cv => { if (cv.offsetParent) drawThumb(cv); });
-  redrawThumbs(); window.addEventListener('resize', redrawThumbs);
-  $$('.filter').forEach(btn => btn.addEventListener('click', () => {
+  const redrawThumbs = () => { $$('canvas', epList).forEach(cv => { if (cv.offsetParent) drawThumb(cv); }); if (scv.offsetParent && !screenImg.src) { thumbData.delete(scv); drawThumb(scv); } };
+  window.addEventListener('resize', redrawThumbs);
+  let vids = [];
+  function selectVideo(i) { const v = vids[i]; if (!v) return;
+    $('#screenTitle').textContent = v.title; $('#screenMeta').textContent = [v.category, v.level, v.duration_secs ? mmss(v.duration_secs) : ''].filter(Boolean).join(' · ');
+    $('#screenTag').textContent = v.category || 'Lesson'; $('#screenNote').textContent = v.description || 'Watch it on your member desk.';
+    $('#screenCta').textContent = v.required_plan === 'starter' ? 'Watch free on your desk' : `Watch with ${PLAN[v.required_plan]}`; $('#screenCta').href = 'login.html?next=account.html%23library';
+    if (v.cover_url) { screenImg.src = v.cover_url; screenImg.hidden = false; } else { screenImg.removeAttribute('src'); screenImg.hidden = true; scv.dataset.seed = hashStr(v.id); thumbData.delete(scv); drawThumb(scv); }
+    $$('.ep', epList).forEach(b => b.setAttribute('aria-current', String(+b.dataset.i === i))); }
+  function renderChannel(list) {
+    vids = list.filter(x => x.kind === 'video');
+    if (!vids.length) { epList.innerHTML = `<li class="note" style="padding:10px">No videos published yet. New lessons appear here as soon as they go live.</li>`; scv.dataset.seed = 11; drawThumb(scv); return; }
+    const cats = [...new Set(vids.map(v => v.category).filter(Boolean))];
+    const fl = $('#filters'); fl.hidden = cats.length < 2;
+    fl.innerHTML = `<button class="filter" aria-pressed="true" data-filter="all">All</button>` + cats.map(c => `<button class="filter" aria-pressed="false" data-filter="${esc(c)}">${esc(c)}</button>`).join('');
+    epList.innerHTML = vids.map((v, i) => `<li data-cat="${esc(v.category)}"><button class="ep" data-i="${i}" aria-current="${i === 0}" aria-label="${esc(v.title)}"><span class="ep-thumb">${v.cover_url ? `<img src="${esc(v.cover_url)}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">` : `<canvas data-seed="${hashStr(v.id)}"></canvas>`}${v.duration_secs ? `<span class="dur">${mmss(v.duration_secs)}</span>` : ''}</span><span><span class="ep-t">${esc(v.title)}</span><span class="ep-m">${esc([v.category, v.level, v.required_plan !== 'starter' ? PLAN[v.required_plan] : 'Free'].filter(Boolean).join(' · '))}</span></span></button></li>`).join('');
+    redrawThumbs(); selectVideo(0);
+  }
+  scv.dataset.seed = 11; drawThumb(scv);
+  epList.addEventListener('click', e => { const b = e.target.closest('.ep'); if (b) selectVideo(+b.dataset.i); });
+  $('#filters').addEventListener('click', e => { const btn = e.target.closest('.filter'); if (!btn) return;
     $$('.filter').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
-    const f = btn.dataset.filter; $$('li', epList).forEach(li => { li.hidden = !(f === 'all' || li.dataset.cat === f); }); redrawThumbs();
-    if (hasGsap && !reduce) gsap.from($$('li:not([hidden])', epList), { x: 20, opacity: 0, duration: .45, stagger: .04, ease: 'power3.out' });
-  }));
-  const scv = $('#screenCanvas'), screen = $('#screen'), ppBtn = $('#screenPP');
-  const ps = { t: 0, total: 0, playing: false, bars: null, col: C.red };
-  const toSec = s => s.split(':').reduce((a, v) => a * 60 + +v, 0);
-  const toClock = s => { s = Math.floor(s); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = pad2(s % 60); return h ? `${h}:${pad2(m)}:${ss}` : `${m}:${ss}`; };
-  function drawScreen() { const { ctx, w, h } = fitCanvas(scv); ctx.fillStyle = '#0d0d10'; ctx.fillRect(0, 0, w, h);
-    const p = ps.total ? ps.t / ps.total : 0, bars = ps.bars, n = Math.max(2, Math.round(bars.length * (.15 + .85 * p)));
-    const [hi, lo] = range(bars); const y = v => h * .85 - (v - lo) / (hi - lo) * h * .68, step = w / (bars.length + 4), xi = i => step * 2 + i * step;
-    ctx.strokeStyle = C.line; ctx.lineWidth = 1; for (let i = 1; i < 6; i++) { ctx.beginPath(); ctx.moveTo(0, h * i / 6); ctx.lineTo(w, h * i / 6); ctx.stroke(); }
-    candles(ctx, bars.slice(0, n), xi, y, Math.max(3, step * .55)); line(ctx, ema(bars.slice(0, n).map(b => b.c), 9), n, xi, y, ps.col, 2.5, 16);
-    const rg = ctx.createRadialGradient(w / 2, h / 2, h * .2, w / 2, h / 2, w * .7); rg.addColorStop(0, 'rgba(0,0,0,0)'); rg.addColorStop(1, 'rgba(0,0,0,.55)'); ctx.fillStyle = rg; ctx.fillRect(0, 0, w, h);
-    $('#screenScrub').style.width = (p * 100) + '%'; $('#screenTime').textContent = `${toClock(ps.t)} / ${toClock(ps.total)}`; }
-  const icoPause = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>', icoPlay = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>';
-  let lastFrame = 0;
-  function step(now) { if (!ps.playing) return; ps.t = Math.min(ps.total, ps.t + (now - lastFrame) / 1000 * ps.total / 40); lastFrame = now; drawScreen();
-    if (ps.t >= ps.total) setPlaying(false); else requestAnimationFrame(step); }
-  function setPlaying(on) {
-    ps.playing = on; screen.classList.toggle('playing', on); ppBtn.innerHTML = on ? icoPause : icoPlay; ppBtn.setAttribute('aria-label', on ? 'Pause' : 'Play');
-    if (on) { lastFrame = performance.now(); requestAnimationFrame(step); } }
-  function loadVideo(i, play) { const v = videos[i]; ps.bars = series(70, v.s * 31, 1, .01); ps.total = toSec(v.d); ps.col = catColor[v.c]; ps.t = play ? 0 : ps.total * .38;
-    $('#screenTitle').textContent = v.t; $('#screenMeta').textContent = v.c + ' · ' + lvlName[v.l]; $('#screenTag').textContent = v.c;
-    $$('.ep', epList).forEach(b => b.setAttribute('aria-current', String(+b.dataset.i === i)));
-    drawScreen(); setPlaying(!!play && !reduce); if (play && reduce) { ps.t = ps.total; drawScreen(); } }
-  loadVideo(0, false);
-  ppBtn.addEventListener('click', () => { if (ps.t >= ps.total) ps.t = 0; setPlaying(!ps.playing); });
-  $('#bigPlay').addEventListener('click', () => setPlaying(true));
-  epList.addEventListener('click', e => { const b = e.target.closest('.ep'); if (b) loadVideo(+b.dataset.i, true); });
-  window.addEventListener('resize', drawScreen);
+    const f = btn.dataset.filter; $$('li', epList).forEach(li => { li.hidden = !(f === 'all' || li.dataset.cat === f); }); redrawThumbs(); });
 
-  // ---------- ebook coverflow ----------
-  const books = [
-    { t: 'Headline and Storyline', vol: 'Vol. 01 · Foundations', d: 'Pips, lots, margin and leverage, explained with a calculator you can follow by hand.', m: '64 pages · PDF + EPUB · Free with Starter' },
-    { t: 'Candles in Context', vol: 'Vol. 02 · Price action', d: 'Why the same pin bar means different things at support, in a range and mid-trend.', m: '128 pages · PDF + EPUB · Pro' },
-    { t: 'Risk Before Reward', vol: 'Vol. 03 · Strategy & risk', d: 'Position sizing, R-multiples and drawdown math, with a sizing sheet for every pair.', m: '96 pages · PDF + EPUB · Pro' },
-    { t: 'The Funded Trader Playbook', vol: 'Vol. 04 · Funded', d: 'Daily loss limits, trailing drawdown and a 30-day plan for passing a prop challenge.', m: '152 pages · PDF + EPUB · Pro' }
-  ];
-  const flow = $('#flow'), fbooks = $$('.fbook'), fDots = $$('#fDots i'); let fi = 0;
+  // ---------- ebook coverflow: published ebooks from the members database ----------
+  const flow = $('#flow'); let books = [], fbooks = [], fDots = [], fi = 0;
   function layoutFlow() {
+    if (!books.length) { $('#flowPrev').disabled = $('#flowNext').disabled = true; return; }
     const narrow = innerWidth < 700;
     fbooks.forEach((b, i) => { const d = i - fi, ad = Math.abs(d);
       const x = d * (narrow ? 74 : 62), z = -ad * 210, ry = d === 0 ? 0 : (d < 0 ? 50 : -50), sc = d === 0 ? 1 : .84;
       b.style.transform = `translate(-50%, -50%) translateX(${x}%) translateZ(${z}px) rotateY(${ry}deg) scale(${sc})`;
       b.style.zIndex = String(10 - ad); b.style.filter = d === 0 ? 'none' : `brightness(${Math.max(.28, .6 - (ad - 1) * .16)})`;
       b.style.opacity = ad > (narrow ? 1 : 2) ? '0' : '1'; b.setAttribute('aria-current', String(d === 0)); b.tabIndex = d === 0 ? 0 : -1; });
-    const bk = books[fi]; $('#fVol').textContent = bk.vol; $('#fTitle').textContent = bk.t; $('#fDesc').textContent = bk.d; $('#fMeta').textContent = bk.m;
+    const bk = books[fi]; $('#fVol').textContent = [bk.stage ? 'Stage ' + pad2(bk.stage) : '', bk.category].filter(Boolean).join(' · ') || 'Ebook';
+    $('#fTitle').textContent = bk.title; $('#fDesc').textContent = bk.description || ''; $('#fMeta').textContent = [bk.pages ? bk.pages + ' pages' : '', bk.required_plan === 'starter' ? 'Free with Starter' : PLAN[bk.required_plan]].filter(Boolean).join(' · ');
     fDots.forEach((dt, i) => dt.classList.toggle('on', i === fi));
     $('#flowPrev').disabled = fi === 0; $('#flowNext').disabled = fi === books.length - 1;
   }
-  const goFlow = i => { fi = Math.max(0, Math.min(books.length - 1, i)); layoutFlow(); };
-  layoutFlow(); window.addEventListener('resize', layoutFlow);
+  function renderShelf(list) {
+    books = list.filter(x => x.kind === 'ebook');
+    flow.innerHTML = books.map((b, i) => `<button class="fbook" data-i="${i}" aria-label="${esc(b.title)}">${b.cover_url ? `<div class="cover photo"><img src="${esc(b.cover_url)}" alt="" loading="lazy" decoding="async"></div>`
+      : `<div class="cover c${2 + Math.abs(hashStr(b.id)) % 3}"><span class="brand">1% CLUB</span><span class="big">${pad2(i + 1)}</span><div><h4>${esc(b.title)}</h4><div class="vol">${esc((b.category || 'EBOOK').toUpperCase())}</div></div></div>`}</button>`).join('');
+    fbooks = $$('.fbook', flow); $('#fDots').innerHTML = books.length > 1 ? books.map((_, i) => `<i${i === 0 ? ' class="on"' : ''}></i>`).join('') : ''; fDots = $$('#fDots i');
+    flow.hidden = !books.length; fi = 0; layoutFlow();
+  }
+  const goFlow = i => { if (!books.length) return; fi = Math.max(0, Math.min(books.length - 1, i)); layoutFlow(); };
+  window.addEventListener('resize', layoutFlow);
   $('#flowPrev').addEventListener('click', () => goFlow(fi - 1)); $('#flowNext').addEventListener('click', () => goFlow(fi + 1));
   flow.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') { e.preventDefault(); goFlow(fi - 1); } if (e.key === 'ArrowRight') { e.preventDefault(); goFlow(fi + 1); } });
   let fx0 = null;
   flow.addEventListener('pointerdown', e => { fx0 = e.clientX; });
   flow.addEventListener('pointerup', e => { if (fx0 === null) return; const dx = e.clientX - fx0; fx0 = null;
     if (Math.abs(dx) > 40) goFlow(fi + (dx < 0 ? 1 : -1)); else { const b = e.target.closest('.fbook'); if (b) goFlow(+b.dataset.i); } });
+  renderShelf([]);
+
+  // ---------- real data: members database (public counts + published library) ----------
+  const DB = window.ONEPC || {};
+  async function rpc(fn) { const r = await fetch(`${DB.supabaseUrl}/rest/v1/rpc/${fn}`, { method: 'POST', headers: { apikey: DB.supabaseKey, 'Content-Type': 'application/json' }, body: '{}' }); if (!r.ok) throw new Error(fn + ' ' + r.status); return r.json(); }
+  function applyStats(st) {
+    const set = (id, v) => { const el = $('#' + id); if (el) el.textContent = v; };
+    HUB.videos.n = st.videos ? String(st.videos) : 'Soon'; HUB.videos.l = st.videos ? (st.videos === 1 ? 'video lesson' : 'video lessons') : 'video lessons on the way';
+    HUB.ebooks.n = st.ebooks ? String(st.ebooks) : 'Soon'; HUB.ebooks.l = st.ebooks === 1 ? 'ebook' : 'ebooks';
+    HUB.live.n = st.live_30d ? String(st.live_30d) : 'Soon'; HUB.live.l = st.live_30d ? 'live sessions in the next 30 days' : 'live sessions coming up';
+    set('nv-videos', HUB.videos.n); set('nv-ebooks', HUB.ebooks.n); set('nv-live', st.live_30d ? st.live_30d + ' / 30d' : 'Soon');
+    if (HUB[hubKey]) { $('#coreN').textContent = HUB[hubKey].n; $('#coreL').textContent = HUB[hubKey].l; }
+    let any = false;
+    $$('#numbers .stat').forEach(el => { const v = +st[el.dataset.k] || 0; el.hidden = !v; if (v) { any = true; const n = $('.n', el); n.dataset.to = v; n.textContent = v.toLocaleString('en-US'); } });
+    $('#numbers').hidden = !any;
+    const bs = st.by_stage || {};
+    $$('[data-stage-chips]').forEach(el => { const c = bs[el.dataset.stageChips] || {}, parts = [];
+      if (c.videos) parts.push(`<span class="chip">${c.videos} lesson${c.videos > 1 ? 's' : ''}</span>`); if (c.ebooks) parts.push(`<span class="chip">${c.ebooks} ebook${c.ebooks > 1 ? 's' : ''}</span>`);
+      el.innerHTML = parts.join('') || '<span class="chip">Lessons coming soon</span>'; });
+    const nl = st.next_live;
+    if (nl) { const t = new Date(nl.starts_at), live = t <= Date.now();
+      $('#hudLiveK').textContent = live ? 'Live now' : 'Next live · ' + t.toLocaleString('en-GB', { timeZone: 'Asia/Kuala_Lumpur', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }) + ' MYT';
+      $('#hudLiveV').textContent = nl.title; const p = $('#hudLiveP'); p.hidden = false; p.textContent = live ? 'On air' : 'in ' + dur(t - Date.now()); p.className = 'pill ' + (live ? 'long' : 'closed'); }
+  }
+  if (DB.supabaseUrl && DB.supabaseKey) {
+    rpc('public_stats').then(applyStats).catch(() => {});
+    rpc('public_library').then(list => { if (Array.isArray(list)) { renderChannel(list); renderShelf(list); } }).catch(() => { renderChannel([]); });
+  } else renderChannel([]);
 
   // ---------- indicator lab ----------
-  const labBars = series(120, 808, 1.0790, 0.0011);
-  const closes = labBars.map(b => b.c), fast = ema(closes, 8), slow = ema(closes, 21);
-  const crosses = []; for (let i = 22; i < closes.length; i++) { const a = fast[i - 1] - slow[i - 1], b = fast[i] - slow[i]; if (a <= 0 && b > 0) crosses.push({ i, up: true }); if (a >= 0 && b < 0) crosses.push({ i, up: false }); }
-  const piv = [], K = 4;
-  for (let i = K; i < labBars.length - K; i++) { let isH = true, isL = true;
-    for (let j = i - K; j <= i + K; j++) { if (j === i) continue; if (labBars[j].h >= labBars[i].h) isH = false; if (labBars[j].l <= labBars[i].l) isL = false; }
-    if (isH) piv.push({ i, v: labBars[i].h, hi: true }); if (isL) piv.push({ i, v: labBars[i].l, hi: false }); }
-  const sweeps = [];
-  piv.forEach(p => { for (let j = p.i + K + 1; j < Math.min(labBars.length, p.i + 40); j++) { const b = labBars[j];
-    if (p.hi && b.h > p.v) { if (b.c < p.v) sweeps.push({ i: j, p, up: false }); break; }
-    if (!p.hi && b.l < p.v) { if (b.c > p.v) sweeps.push({ i: j, p, up: true }); break; } } });
+  // Real EUR/USD hourly candles (eurusd-h1.json, refreshed hourly by the Pages workflow); illustrative data until it loads.
+  let labBars = series(120, 808, 1.0790, 0.0011), labTimes = null, closes, fast, slow;
+  const crosses = [], piv = [], sweeps = [], K = 4;
+  function computeLab() {
+    closes = labBars.map(b => b.c); fast = ema(closes, 8); slow = ema(closes, 21); crosses.length = piv.length = sweeps.length = 0;
+    for (let i = 22; i < closes.length; i++) { const a = fast[i - 1] - slow[i - 1], b = fast[i] - slow[i]; if (a <= 0 && b > 0) crosses.push({ i, up: true }); if (a >= 0 && b < 0) crosses.push({ i, up: false }); }
+    for (let i = K; i < labBars.length - K; i++) { let isH = true, isL = true;
+      for (let j = i - K; j <= i + K; j++) { if (j === i) continue; if (labBars[j].h >= labBars[i].h) isH = false; if (labBars[j].l <= labBars[i].l) isL = false; }
+      if (isH) piv.push({ i, v: labBars[i].h, hi: true }); if (isL) piv.push({ i, v: labBars[i].l, hi: false }); }
+    piv.forEach(p => { for (let j = p.i + K + 1; j < Math.min(labBars.length, p.i + 40); j++) { const b = labBars[j];
+      if (p.hi && b.h > p.v) { if (b.c < p.v) sweeps.push({ i: j, p, up: false }); break; }
+      if (!p.hi && b.l < p.v) { if (b.c > p.v) sweeps.push({ i: j, p, up: true }); break; } } });
+  }
+  computeLab();
   let labInd = 'ribbon';
   const legends = {
     ribbon: `<span><i class="legend-sw" style="background:${C.red}"></i>EMA 8</span><span><i class="legend-sw" style="background:${C.pink}"></i>EMA 21</span><span><i class="legend-sw" style="background:${C.bull}"></i>Long cross</span><span><i class="legend-sw" style="background:${C.bear}"></i>Short cross</span>`,
@@ -1491,12 +1495,15 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
   const labOhlc = $('#labOhlc');
   const lab = ChartView($('#labChart'), { bars: labBars,
     onReadout: i => { const b = labBars[i]; const extra = labInd === 'ribbon' ? `<span style="color:${C.red}">EMA8 ${fast[i].toFixed(5)}</span><span style="color:${C.pink}">EMA21 ${slow[i].toFixed(5)}</span>` : '';
-      labOhlc.innerHTML = `<span><b>EUR/USD</b></span><span>H1</span>${fmtOhlc(b)}${extra}`; },
+      labOhlc.innerHTML = `<span><b>EUR/USD</b></span><span>H1${labTimes ? ' · ' + new Date(labTimes[i] * 1000).toLocaleString('en-GB', { timeZone: 'Asia/Kuala_Lumpur', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' MYT' : ' · illustrative'}</span>${fmtOhlc(b)}${extra}`; },
     overlay(ctx, a, layer) {
       const { xi, y, n, step } = a, al = a.a;
       if (labInd === 'sessions' && layer === 'under') {
         const sess = [[0, 8, C.pink, 'ASIA'], [7, 16, C.red, 'LDN'], [13, 21, C.bull, 'NY']];
-        for (let d = 0; d * 24 < n; d++) sess.forEach(([s, e, col, lb]) => { const i0 = d * 24 + s, i1 = Math.min(d * 24 + e, n) - 1; if (i1 < i0) return;
+        const hourOf = i => labTimes ? new Date(labTimes[i] * 1000).getUTCHours() : i % 24, dayOf = i => labTimes ? Math.floor(labTimes[i] / 86400) : Math.floor(i / 24);
+        const runs = []; sess.forEach(([s, e, col, lb]) => { let st = -1; for (let i = 0; i <= n; i++) { const inS = i < n && hourOf(i) >= s && hourOf(i) < e && (st < 0 || dayOf(i) === dayOf(st));
+          if (inS && st < 0) st = i; if (!inS && st >= 0) { runs.push([st, i - 1, col, lb]); st = (i < n && hourOf(i) >= s && hourOf(i) < e) ? i : -1; } } });
+        runs.forEach(([i0, i1, col, lb]) => {
           let sh = -Infinity, sl = Infinity; for (let i = i0; i <= i1; i++) { sh = Math.max(sh, labBars[i].h); sl = Math.min(sl, labBars[i].l); }
           const x0 = xi(i0) - step / 2, x1 = xi(i1) + step / 2; ctx.globalAlpha = .12 * al; ctx.fillStyle = col; ctx.fillRect(x0, y(sh), x1 - x0, y(sl) - y(sh));
           ctx.globalAlpha = .85 * al; ctx.strokeStyle = col; ctx.lineWidth = 1; ctx.strokeRect(x0, y(sh), x1 - x0, y(sl) - y(sh)); ctx.fillStyle = col; ctx.textBaseline = 'alphabetic'; ctx.fillText(lb, x0 + 3, y(sh) - 5); ctx.textBaseline = 'middle'; ctx.globalAlpha = 1; });
@@ -1518,6 +1525,10 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
       }
     } });
   lab.draw();
+  fetch('eurusd-h1.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject()).then(d => {
+    if (!d || !Array.isArray(d.bars) || d.bars.length < 30) return;
+    labTimes = d.bars.map(b => b[0]); labBars = d.bars.map(([, o, h, l, c]) => ({ o, h, l, c, v: 1 })); lab.bars = labBars; computeLab(); lab.draw();
+  }).catch(() => {});
   const labTabs = $$('.switch');
   function setInd(key) { labInd = key; labTabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.ind === key)));
     labLegend.innerHTML = legends[key]; if (hasGsap && !reduce) gsap.fromTo(lab, { fade: 0 }, { fade: 1, duration: .8, ease: 'power2.out', onUpdate: lab.draw }); else lab.draw(); }
@@ -1781,8 +1792,6 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
 
   // terminal powers on
   gsap.from('.term', { y: 60, opacity: .2, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.term', start: 'top 88%' } });
-  gsap.from('.w-row', { x: -16, opacity: 0, duration: .5, stagger: .04, ease: 'power3.out', clearProps: 'x,opacity', scrollTrigger: { trigger: '.term', start: 'top 75%' } });
-  ScrollTrigger.create({ trigger: '#termChart', start: 'top 85%', once: true, onEnter: () => gsap.fromTo(term, { p: .05 }, { p: 1, duration: 1.8, ease: 'power3.out', onUpdate: term.draw }) });
 
   // path: the ascent draws as you climb through the stages
   gsap.set(asc, { strokeDasharray: ascLen, strokeDashoffset: ascLen });
@@ -1795,8 +1804,6 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
   // channel and shelf
   gsap.from('#screen', { y: 50, opacity: .2, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.channel', start: 'top 85%' } });
   gsap.from('#epList li', { x: 30, opacity: 0, duration: .6, stagger: .05, ease: 'power3.out', clearProps: 'x,opacity', scrollTrigger: { trigger: '.channel', start: 'top 80%' } });
-  ScrollTrigger.create({ trigger: '#screen', start: 'top 60%', once: true, onEnter: () => { if (!ps.playing && ps.t < ps.total) setPlaying(true); } });
-  gsap.from('.fbook .cover', { opacity: 0, y: 80, duration: 1.2, stagger: .1, ease: 'expo.out', clearProps: 'opacity,transform', scrollTrigger: { trigger: '#flow', start: 'top 80%' } });
 
   // indicator lab draws with scroll
   gsap.fromTo(lab, { p: .1 }, { p: 1, ease: 'none', onUpdate: lab.draw, scrollTrigger: { trigger: '.lab', start: 'top 85%', end: 'bottom 70%', scrub: .6 } });

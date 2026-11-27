@@ -44,6 +44,23 @@ jobs:
           else
             echo "Calendar feed unavailable; publishing without calendar.json"
           fi
+      - name: Fetch real EUR/USD hourly candles (indicator demo)
+        run: |
+          python3 - <<'PY'
+          import json, time, urllib.request
+          try:
+              req = urllib.request.Request('https://query1.finance.yahoo.com/v8/finance/chart/EURUSD=X?interval=1h&range=10d', headers={'User-Agent': 'Mozilla/5.0 (1percentclub-site build)'})
+              r = json.load(urllib.request.urlopen(req, timeout=30))['chart']['result'][0]
+              q, ts = r['indicators']['quote'][0], r['timestamp']
+              bars = [[ts[i], round(q['open'][i], 5), round(q['high'][i], 5), round(q['low'][i], 5), round(q['close'][i], 5)]
+                      for i in range(len(ts)) if None not in (q['open'][i], q['high'][i], q['low'][i], q['close'][i])]
+              bars = [b for b in bars if b[0] % 3600 == 0][-120:]
+              if len(bars) >= 30:
+                  json.dump({'symbol': 'EURUSD', 'interval': '1h', 'updated': int(time.time()), 'bars': bars}, open('_site/eurusd-h1.json', 'w'), separators=(',', ':'))
+                  print('EUR/USD bars:', len(bars))
+          except Exception as e:
+              print('EUR/USD candles unavailable this run:', e)
+          PY
       # Gold (XAU/USD): record the spot price every run (hourly) and publish the last 48 hours as
       # xau-history.json for the home page's 24-hour change and sparkline. The cache carries the
       # history from one run to the next.
