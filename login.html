@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sign in · 1 Percent Club</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex">
+<meta name="description" content="Sign in to your 1 Percent Club member desk, or create a free account.">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:title" content="Sign in · 1 Percent Club">
+<meta property="og:image" content="https://1-percentclub.com/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="desk.css">
+</head>
+<body>
+<div class="noise" aria-hidden="true"></div>
+<main class="auth">
+  <section class="auth-art" aria-label="1 Percent Club">
+    <a class="logo" href="index.html" aria-label="1 Percent Club home"><img src="1pc-logo.webp" alt="1 Percent Club" width="821" height="322"></a>
+    <div style="display:grid;gap:18px">
+      <span class="eyebrow">Member desk</span>
+      <h1><span class="chrome">One hub.</span><br><span class="red">Your desk.</span></h1>
+      <p class="note">Your lessons, live sessions, path to funded and support, in one place. Starter is free.</p>
+    </div>
+    <div class="keycard kc-starter" aria-hidden="true">
+      <div class="kc-top"><img src="1pc-logo.webp" alt="" width="821" height="322"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 6c2 3.6 2 8.4 0 12M12 4c3 4.8 3 11.2 0 16M16 2c4 6 4 14 0 20"/></svg></div>
+      <span class="kc-chip"></span>
+      <div><span class="kc-num">1PC 0000 0000 ••••</span><div class="kc-bot"><div><span class="kc-label">Member</span><span class="kc-tier" id="artName">You</span></div><div class="kc-price"><span class="kc-label">Tier</span><span class="kc-tier">Starter</span></div></div></div>
+    </div>
+  </section>
+
+  <section class="auth-panel">
+    <div class="tabs" role="tablist" aria-label="Sign in or create an account">
+      <button role="tab" id="tab-in" aria-selected="true" aria-controls="formIn">Sign in</button>
+      <button role="tab" id="tab-up" aria-selected="false" aria-controls="formUp">Create account</button>
+    </div>
+
+    <form class="form" id="formIn" novalidate aria-labelledby="tab-in">
+      <h2>Welcome back</h2>
+      <label for="inEmail">Email<input class="field-in" id="inEmail" type="email" autocomplete="email" required></label>
+      <label for="inPass">Password<input class="field-in" id="inPass" type="password" autocomplete="current-password" required></label>
+      <button class="btn btn-red" type="submit">Sign in</button>
+      <div class="alt"><button type="button" id="toForgot">Forgot password?</button><span>New here? <button type="button" data-tab="up">Create an account</button></span></div>
+      <p class="form-msg" aria-live="polite"></p>
+    </form>
+
+    <form class="form" id="formUp" novalidate hidden aria-labelledby="tab-up">
+      <h2>Join free</h2>
+      <label for="upName">Full name<input class="field-in" id="upName" type="text" autocomplete="name" maxlength="80" required></label>
+      <label for="upEmail">Email<input class="field-in" id="upEmail" type="email" autocomplete="email" required></label>
+      <label for="upPass">Password (at least 8 characters)<input class="field-in" id="upPass" type="password" autocomplete="new-password" minlength="8" required></label>
+      <label class="check" for="upAgree"><input type="checkbox" id="upAgree"><span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms</a> and <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>, and I understand trading carries risk (<a href="risk.html" target="_blank" rel="noopener">Risk Disclosure</a>).</span></label>
+      <button class="btn btn-red" type="submit">Create free account</button>
+      <div class="alt"><span>Already a member? <button type="button" data-tab="in">Sign in</button></span></div>
+      <p class="form-msg" aria-live="polite"></p>
+    </form>
+
+    <form class="form" id="formForgot" novalidate hidden>
+      <h2>Reset password</h2>
+      <p class="note">Enter your email and we will send you a link to choose a new password.</p>
+      <label for="fgEmail">Email<input class="field-in" id="fgEmail" type="email" autocomplete="email" required></label>
+      <button class="btn btn-red" type="submit">Send reset link</button>
+      <div class="alt"><button type="button" data-tab="in">Back to sign in</button></div>
+      <p class="form-msg" aria-live="polite"></p>
+    </form>
+
+    <form class="form" id="formNew" novalidate hidden>
+      <h2>Choose a new password</h2>
+      <label for="newPass">New password (at least 8 characters)<input class="field-in" id="newPass" type="password" autocomplete="new-password" minlength="8" required></label>
+      <button class="btn btn-red" type="submit">Save password</button>
+      <p class="form-msg" aria-live="polite"></p>
+    </form>
+
+    <p class="setup-note" id="setupNote" hidden>Member sign-in is being set up and opens soon. In the meantime, <a href="index.html#join">join the list</a> and we will email you when it is ready.</p>
+    <p class="note" style="font-size:13px">Education only, not financial advice. <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const cfg = window.ONEPC || {}, params = new URLSearchParams(location.search);
+  const next = /^[a-z0-9-]+\.html(#[a-z0-9-]+)?$/i.test(params.get('next') || '') ? params.get('next') : 'account.html';
+  const forms = { in: $('#formIn'), up: $('#formUp'), forgot: $('#formForgot'), new: $('#formNew') };
+  function show(k) { Object.entries(forms).forEach(([key, f]) => { f.hidden = key !== k; });
+    $('#tab-in').setAttribute('aria-selected', String(k === 'in')); $('#tab-up').setAttribute('aria-selected', String(k === 'up'));
+    const f = forms[k]; const first = f && f.querySelector('input'); if (first) first.focus(); }
+  $('#tab-in').addEventListener('click', () => show('in')); $('#tab-up').addEventListener('click', () => show('up'));
+  $$('[data-tab]').forEach(b => b.addEventListener('click', () => show(b.dataset.tab)));
+  $('#toForgot').addEventListener('click', () => { $('#fgEmail').value = $('#inEmail').value; show('forgot'); });
+  $('#upName').addEventListener('input', e => { $('#artName').textContent = e.target.value.trim().split(/\s+/)[0] || 'You'; });
+  if (params.get('mode') === 'signup' || location.hash === '#signup') show('up');
+
+  const say = (form, text, ok) => { const m = form.querySelector('.form-msg'); m.textContent = text; m.className = 'form-msg ' + (ok ? 'ok' : 'err'); };
+  const busy = (form, on) => { const b = form.querySelector('button[type="submit"]'); b.disabled = on; if (on) { b.dataset.label = b.textContent; b.textContent = 'Please wait…'; } else if (b.dataset.label) b.textContent = b.dataset.label; };
+  const friendly = e => { const m = (e && e.message) || '';
+    if (/invalid login/i.test(m)) return 'That email and password do not match. Check them, or reset your password.';
+    if (/not confirmed/i.test(m)) return 'Confirm your email first: open the link we sent you, then sign in.';
+    if (/already registered|already been registered/i.test(m)) return 'There is already an account with this email. Sign in instead, or reset your password.';
+    if (/rate limit|too many/i.test(m)) return 'Too many attempts. Wait a minute and try again.';
+    if (/password/i.test(m) && /(short|least|weak)/i.test(m)) return 'Choose a longer password: at least 8 characters.';
+    if (/fetch|network/i.test(m)) return 'Could not reach the members server. Check your connection and try again.';
+    return m || 'Something went wrong. Please try again.'; };
+  const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+
+  if (!cfg.supabaseUrl || !cfg.supabaseKey || !window.supabase) {
+    Object.values(forms).forEach(f => f.hidden = true); $('.tabs').hidden = true; $('#setupNote').hidden = false; return;
+  }
+  const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey);
+  const here = location.origin + location.pathname.replace(/[^/]*$/, '');
+
+  let recovering = false;
+  sb.auth.onAuthStateChange((event) => { if (event === 'PASSWORD_RECOVERY') { recovering = true; show('new'); } });
+  sb.auth.getSession().then(({ data }) => { if (data.session && !recovering && !/type=recovery/.test(location.hash)) location.replace(next); });
+
+  forms.in.addEventListener('submit', async e => { e.preventDefault(); const f = forms.in, email = $('#inEmail').value.trim(), pw = $('#inPass').value;
+    if (!validEmail(email)) return say(f, 'Enter a valid email address.'); if (!pw) return say(f, 'Enter your password.');
+    busy(f, true); const { error } = await sb.auth.signInWithPassword({ email, password: pw }); busy(f, false);
+    if (error) return say(f, friendly(error)); say(f, 'Signed in. Opening your desk…', true); location.replace(next); });
+
+  forms.up.addEventListener('submit', async e => { e.preventDefault(); const f = forms.up, name = $('#upName').value.trim(), email = $('#upEmail').value.trim(), pw = $('#upPass').value;
+    if (name.length < 2) return say(f, 'Enter your name.'); if (!validEmail(email)) return say(f, 'Enter a valid email address.');
+    if (pw.length < 8) return say(f, 'Choose a password with at least 8 characters.'); if (!$('#upAgree').checked) return say(f, 'Tick the box to accept the Terms and Privacy Policy.');
+    busy(f, true); const { data, error } = await sb.auth.signUp({ email, password: pw, options: { data: { full_name: name }, emailRedirectTo: here + 'account.html' } }); busy(f, false);
+    if (error) return say(f, friendly(error));
+    if (data.session) { say(f, 'Account created. Opening your desk…', true); location.replace(next); }
+    else say(f, `Almost there: we sent a confirmation link to ${email}. Open it to activate your account (check Spam if you don't see it).`, true); });
+
+  forms.forgot.addEventListener('submit', async e => { e.preventDefault(); const f = forms.forgot, email = $('#fgEmail').value.trim();
+    if (!validEmail(email)) return say(f, 'Enter a valid email address.');
+    busy(f, true); const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: here + 'login.html' }); busy(f, false);
+    if (error) return say(f, friendly(error)); say(f, `If ${email} has an account, a reset link is on its way. Check your inbox and Spam.`, true); });
+
+  forms.new.addEventListener('submit', async e => { e.preventDefault(); const f = forms.new, pw = $('#newPass').value;
+    if (pw.length < 8) return say(f, 'Choose a password with at least 8 characters.');
+    busy(f, true); const { error } = await sb.auth.updateUser({ password: pw }); busy(f, false);
+    if (error) return say(f, friendly(error)); say(f, 'Password saved. Opening your desk…', true); setTimeout(() => location.replace(next), 900); });
+})();
+</script>
+</body>
+</html>
