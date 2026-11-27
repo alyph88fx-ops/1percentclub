@@ -1479,7 +1479,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
   // ---------- signup ----------
   // Sign-ups go to a Google Sheet through its Apps Script web app (tools/signup-sheet.gs).
   // Leave SIGNUP_URL empty and the form stays in demo mode.
-  const SIGNUP_URL = '';
+  const SIGNUP_URL = 'https://script.google.com/macros/s/AKfycbzO_lums_fVDtrJ9WYAduwULnzCymEwU5_AnCGdLSHDrv3pinsA7hlroyr_ds39H0OAjw/exec';
   $('#signup').addEventListener('submit', async e => { e.preventDefault(); const input = $('#email'), msg = $('#signupMsg'), btn = $('#signupBtn');
     const say = (t, ok) => { msg.style.color = ok ? C.bull : C.bear; msg.textContent = t; };
     if (!input.value || !input.checkValidity()) { say('Enter a valid email address, like you@example.com.'); input.focus(); return; }
