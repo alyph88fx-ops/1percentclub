@@ -495,6 +495,10 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
 .wordmark { width: min(980px, 96%); height: auto; filter: drop-shadow(0 0 60px rgba(220,20,60,.25)); }
 .risk-note { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line); display: grid; gap: 10px; color: var(--dim); font-size: 13px; line-height: 1.6; }
 .risk-note b { color: var(--muted); }
+.risk-note a, .fine a { color: var(--muted); text-decoration: underline; text-decoration-color: var(--crimson); text-underline-offset: 3px; }
+.legal-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 36px; font: 600 11px/1 var(--f-ui); letter-spacing: .14em; text-transform: uppercase; }
+.legal-links a { color: var(--muted); } .legal-links a:hover { color: var(--fg); }
+.join p.fine { font-size: 13px; color: var(--dim); margin-top: 2px; max-width: none; }
 @media (max-width: 860px) { .join-grid { grid-template-columns: 1fr; } .foot { grid-template-columns: 1fr 1fr; } .foot > div:first-child { grid-column: 1 / -1; } }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; } }
@@ -955,6 +959,7 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
           <button class="btn btn-red" type="submit" id="signupBtn">Create free account</button>
         </div>
         <input class="sr" type="text" name="company" id="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="fine">By signing up you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. Unsubscribe any time.</p>
         <p class="msg" id="signupMsg" aria-live="polite"></p>
       </form>
     </div>
@@ -972,10 +977,11 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
       <div><h4>Tools</h4><ul><li><a href="#desk">The desk</a></li><li><a href="#indicators">Indicators</a></li><li><a href="#hub">The hub</a></li></ul></div>
       <div><h4>Account</h4><ul><li><a href="#pricing">Membership</a></li><li><a href="#join">Start free</a></li><li><a href="account.html">Sign in</a></li></ul></div>
     </div>
+    <nav class="legal-links" aria-label="Legal"><a href="terms.html">Terms of Use</a><a href="privacy.html">Privacy Policy</a><a href="risk.html">Risk Disclosure</a><a href="mailto:hello@1-percentclub.com">hello@1-percentclub.com</a></nav>
     <div class="wordmark-wrap" aria-hidden="true"><img class="wordmark" id="wordmark" src="1pc-logo.webp" alt="" width="821" height="322"></div>
     <div class="risk-note">
-      <p><b>Risk warning.</b> Trading foreign exchange, CFDs and crypto on margin carries a high level of risk and may not be suitable for all investors. You could lose more than your initial deposit. 1 Percent Club provides education only and does not give investment advice or manage funds. Past performance and backtests are not indicative of future results.</p>
-      <p>Mock website for design purposes. Prices, counts, charts, alerts and calendar times are illustrative; session clocks use your device's time. © 2026 1 Percent Club.</p>
+      <p><b>Risk warning.</b> Trading foreign exchange, CFDs and crypto on margin carries a high level of risk and may not be suitable for all investors. You could lose more than your initial deposit; read the <a href="risk.html">Risk Disclosure</a>. 1 Percent Club provides education only and does not give investment advice or manage funds. Past performance and backtests are not indicative of future results.</p>
+      <p>Prices, counts, charts, alerts and calendar times shown on this site are illustrative; session clocks use your device's time. © 2026 1 Percent Club.</p>
     </div>
   </div>
 </footer>
