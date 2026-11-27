@@ -952,8 +952,9 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
         <label for="email">Email address</label>
         <div class="signup-row">
           <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
-          <button class="btn btn-red" type="submit">Create free account</button>
+          <button class="btn btn-red" type="submit" id="signupBtn">Create free account</button>
         </div>
+        <input class="sr" type="text" name="company" id="company" tabindex="-1" autocomplete="off" aria-hidden="true">
         <p class="msg" id="signupMsg" aria-live="polite"></p>
       </form>
     </div>
@@ -1476,9 +1477,23 @@ footer { border-top: 1px solid var(--line); padding-top: 56px; padding-bottom: c
   });
 
   // ---------- signup ----------
-  $('#signup').addEventListener('submit', e => { e.preventDefault(); const input = $('#email'), msg = $('#signupMsg');
-    if (!input.value || !input.checkValidity()) { msg.style.color = C.bear; msg.textContent = 'Enter a valid email address, like you@example.com.'; input.focus(); return; }
-    msg.style.color = C.bull; msg.textContent = 'You are on the list. (Demo form: nothing was sent.)'; input.value = ''; });
+  // Sign-ups go to a Google Sheet through its Apps Script web app (tools/signup-sheet.gs).
+  // Leave SIGNUP_URL empty and the form stays in demo mode.
+  const SIGNUP_URL = '';
+  $('#signup').addEventListener('submit', async e => { e.preventDefault(); const input = $('#email'), msg = $('#signupMsg'), btn = $('#signupBtn');
+    const say = (t, ok) => { msg.style.color = ok ? C.bull : C.bear; msg.textContent = t; };
+    if (!input.value || !input.checkValidity()) { say('Enter a valid email address, like you@example.com.'); input.focus(); return; }
+    if (!SIGNUP_URL) { say('You are on the list. (Demo form: nothing was sent.)', true); input.value = ''; return; }
+    btn.disabled = true; const label = btn.textContent; btn.textContent = 'Sending…'; msg.textContent = '';
+    try {
+      const body = new URLSearchParams({ email: input.value.trim(), company: $('#company').value, page: location.pathname, source: 'join form' });
+      const res = await fetch(SIGNUP_URL, { method: 'POST', body });
+      const data = await res.json().catch(() => ({ ok: res.ok }));
+      if (data.ok) { say(data.duplicate ? 'You are already on the list. We will be in touch.' : 'You are on the list. Watch your inbox for the free Foundations track.', true); input.value = ''; }
+      else say(data.error === 'invalid_email' ? 'That email address does not look right. Check it and try again.' : 'Something went wrong. Please try again in a minute.');
+    } catch (err) { say('Could not reach the sign-up list. Check your connection and try again.'); }
+    finally { btn.disabled = false; btn.textContent = label; }
+  });
 
   // ---------- 3D logo with motion graphics ----------
   const three = { ok: false, mx: 0, my: 0, scroll: 0, visible: true };
